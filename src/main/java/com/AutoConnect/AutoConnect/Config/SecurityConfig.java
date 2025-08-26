@@ -1,6 +1,8 @@
 package com.AutoConnect.AutoConnect.Config;
 
+
 import com.AutoConnect.AutoConnect.Service.CustomUserDetailsService;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -19,9 +21,11 @@ public class SecurityConfig {
         this.userDetailsService = userDetailsService;
     }
 
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/admin/**").hasRole("ADMIN")
@@ -36,6 +40,7 @@ public class SecurityConfig {
                 )
                 .httpBasic(customizer -> {});
 
+
         return http.build();
     }
 
@@ -46,6 +51,7 @@ public class SecurityConfig {
         configuration.setAllowedOrigins(List.of("http://localhost:5173"," http://localhost:8081")); // Frontend
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
+
 
         configuration.setAllowCredentials(true);
 
