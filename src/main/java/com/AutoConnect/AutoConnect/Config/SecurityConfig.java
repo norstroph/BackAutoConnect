@@ -22,15 +22,17 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/technician/**").hasAnyRole("ADMIN","technician")
                         .requestMatchers("/user/**").hasAnyRole("USER", "ADMIN","technician")
+                        .requestMatchers("/created").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
-                        .loginPage("/login")   // log in persso
-                        .permitAll()
+                        .loginPage("/login")   // endpoint ou page login
+                        .permitAll()           // accessible sans être connecté
                 )
                 .httpBasic(customizer -> {});
 

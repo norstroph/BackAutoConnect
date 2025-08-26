@@ -1,16 +1,15 @@
 package com.AutoConnect.AutoConnect.Controller;
 
+import com.AutoConnect.AutoConnect.Entity.Role;
 import com.AutoConnect.AutoConnect.Entity.User;
 import com.AutoConnect.AutoConnect.Service.UserService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/admin")
 public class UserController {
     private final UserService userService;
     public UserController(UserService userService){
@@ -19,7 +18,11 @@ public class UserController {
 
     @GetMapping()
     public ResponseEntity<List<User>> allUser(){
-
         return ResponseEntity.ok( userService.findAll());
+    }
+    @PostMapping
+    public User createUser(@RequestBody User user) {
+        user.setRole(Role.ADMIN);
+        return userService.saveUser(user);
     }
 }
