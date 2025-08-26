@@ -24,4 +24,5 @@ public class AuthController {
                 .orElseThrow(() -> new RuntimeException("User not found"));
     }
 
+
 }
