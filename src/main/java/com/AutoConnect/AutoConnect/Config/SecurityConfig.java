@@ -1,5 +1,8 @@
 package com.AutoConnect.AutoConnect.Config;
 
+
+import com.AutoConnect.AutoConnect.Service.CustomUserDetailsService;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -12,16 +15,32 @@ import java.util.List;
 
 @Configuration
 public class SecurityConfig {
+    private final CustomUserDetailsService userDetailsService;
+
+    public SecurityConfig(CustomUserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
+    }
+
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable()) // Désactive CSRF pour les API REST
-                .cors(cors -> cors.configurationSource(corsConfigurationSource())) // Active ta config CORS
+
+                .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/public/**").permitAll()
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/technician/**").hasAnyRole("ADMIN","technician")
+                        .requestMatchers("/user/**").hasAnyRole("USER", "ADMIN","technician")
+                        .requestMatchers("/created").permitAll()
                         .anyRequest().authenticated()
-                );
+                )
+                .formLogin(form -> form
+                        .loginPage("/login")   // endpoint ou page login
+                        .permitAll()           // accessible sans être connecté
+                )
+                .httpBasic(customizer -> {});
+
+
         return http.build();
     }
 
@@ -33,7 +52,7 @@ public class SecurityConfig {
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
 
-        // 🔹 Important si tu envoies des cookies ou Authorization Bearer
+
         configuration.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
