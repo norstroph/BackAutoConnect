@@ -3,34 +3,29 @@ package com.AutoConnect.AutoConnect.Controller;
 import com.AutoConnect.AutoConnect.DTO.UserRequestDTO;
 import com.AutoConnect.AutoConnect.DTO.UserResponseDTO;
 import com.AutoConnect.AutoConnect.Entity.Role;
-import com.AutoConnect.AutoConnect.Entity.User;
-import com.AutoConnect.AutoConnect.Mapper.UserMapper;
 import com.AutoConnect.AutoConnect.Service.UserService;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/created")
-public class UserController {
+@RequestMapping("/engineers")
+public class EngineersController {
     private final UserService userService;
-
-    public UserController(UserService userService){
+    public EngineersController(UserService userService){
         this.userService = userService;
-
     }
 
-    @GetMapping()
-    public ResponseEntity<List<User>> allUser(){
-        return ResponseEntity.ok( userService.findAll());
-    }
-    @PostMapping
+    @PostMapping("/createTech")
     public ResponseEntity<UserResponseDTO> createUser(@Valid @RequestBody UserRequestDTO userRequest) {
-        User user = UserMapper.UserRequestDTOToUser(userRequest);
-        User newUser = userService.saveUser(user);
-        UserResponseDTO userResponseDTO = UserMapper.UserToUserResponseDTO(newUser);
-        return ResponseEntity.ok(userResponseDTO) ;
+        return new ResponseEntity<>(userService.saveTechnicians(userRequest), HttpStatus.CREATED);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<UserResponseDTO>> getAllTechnicians(){
+        return new ResponseEntity<>(userService.findByRoleTechnicians(Role.TECHNICIAN),HttpStatus.FOUND);
     }
 }

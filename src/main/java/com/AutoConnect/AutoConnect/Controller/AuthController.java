@@ -1,11 +1,10 @@
-package com.AutoConnect.AutoConnect.Config;
+package com.AutoConnect.AutoConnect.Controller;
 
 import com.AutoConnect.AutoConnect.Entity.User;
 import com.AutoConnect.AutoConnect.Repository.UserRepository;
 import com.AutoConnect.AutoConnect.Security.JwtUtil;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
