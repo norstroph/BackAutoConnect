@@ -20,5 +20,7 @@ public class User {
     private String phone;
     @Enumerated(EnumType.STRING)
     private Role role;
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Garage garage;
 
 }

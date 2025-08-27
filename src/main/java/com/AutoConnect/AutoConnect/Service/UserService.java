@@ -2,6 +2,7 @@ package com.AutoConnect.AutoConnect.Service;
 
 import com.AutoConnect.AutoConnect.DTO.UserRequestDTO;
 import com.AutoConnect.AutoConnect.DTO.UserResponseDTO;
+import com.AutoConnect.AutoConnect.Entity.Garage;
 import com.AutoConnect.AutoConnect.Entity.Role;
 import com.AutoConnect.AutoConnect.Entity.User;
 import com.AutoConnect.AutoConnect.Mapper.UserMapper;
@@ -13,17 +14,22 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
 public class UserService {
     private final UserRepository userRepository;
+    private final JwtUtil jwtUtil;
+    private final RestTemplateService restTemplateService;
 
     private final  PasswordEncoder encoder;
 
-    public UserService(UserRepository userRepository, PasswordEncoder encoder) {
+    public UserService(UserRepository userRepository, PasswordEncoder encoder, JwtUtil jwtUtil, RestTemplateService restTemplateService) {
         this.userRepository = userRepository;
         this.encoder = encoder;
+        this.jwtUtil = jwtUtil;
+        this.restTemplateService = restTemplateService;
 
     }
 
@@ -47,6 +53,7 @@ public class UserService {
                 user.setRole(Role.CUSTOMERS);
             } else {
                 user.setRole(Role.ENGINEER);
+                Garage  garage = restTemplateService.createGarage(userRequest);
             }
 
         String raw = user.getPassword();
@@ -64,6 +71,20 @@ public class UserService {
                 .map(UserMapper::UserToUserResponseDTO)
                 .toList();
     }
+
+    public ResponseEntity<?> createToken(UserRequestDTO newUser){
+        User user = userRepository.findByEmail(newUser.getEmail())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        if (user == null || !encoder.matches(newUser.getPassword(), user.getPassword())) {
+            return ResponseEntity.status(401).body("Identifiants incorrects");
+        }
+        String token = jwtUtil.generateToken(newUser.getEmail(), user.getRole().name());
+        return ResponseEntity.ok(Map.of(
+                "token", token,
+                "email", user.getEmail()
+        ));
+    }
+
 
     public Optional<User> FindByname(String name){
         return userRepository.findByName(name);
