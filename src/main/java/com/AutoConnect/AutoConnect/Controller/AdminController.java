@@ -26,11 +26,11 @@ public class AdminController {
     public ResponseEntity<List<User>> allUser(){
         return ResponseEntity.ok( userService.findAll());
     }
-    @PostMapping
+/*    @PostMapping
     public ResponseEntity<UserResponseDTO> createUser(@Valid @RequestBody UserRequestDTO userRequest) {
         User user = UserMapper.UserRequestDTOToUser(userRequest);
         User newUser = userService.saveUser(user);
         UserResponseDTO userResponseDTO = UserMapper.UserToUserResponseDTO(newUser);
         return ResponseEntity.ok(userResponseDTO) ;
-    }
+    }*/
 }

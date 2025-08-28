@@ -1,5 +1,6 @@
 package com.AutoConnect.AutoConnect.DTO;
 
+import com.AutoConnect.AutoConnect.Entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
