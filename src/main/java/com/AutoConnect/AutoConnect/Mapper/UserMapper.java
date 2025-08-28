@@ -21,5 +21,12 @@ public class UserMapper {
         userResponseDTO.setPhone(user.getPhone());
         return userResponseDTO;
     }
+    public static User UserResponseDTOToUser(UserResponseDTO userResponseDTO){
+        User user = new User();
+        user.setEmail(userResponseDTO.getEmail());
+        user.setName(userResponseDTO.getName());
+        user.setPhone(userResponseDTO.getPhone());
+        return user;
+    }
 
 }
