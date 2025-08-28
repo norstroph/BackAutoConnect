@@ -25,7 +25,6 @@ public class AdressDTO {
     private String libelleCommune;
     @JsonProperty("code_commune")
     private String codeCommune;
-
 }
 
 

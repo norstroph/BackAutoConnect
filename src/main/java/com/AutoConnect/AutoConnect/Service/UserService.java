@@ -7,9 +7,10 @@ import com.AutoConnect.AutoConnect.Entity.Role;
 import com.AutoConnect.AutoConnect.Entity.User;
 import com.AutoConnect.AutoConnect.Mapper.UserMapper;
 import com.AutoConnect.AutoConnect.Repository.UserRepository;
+import com.AutoConnect.AutoConnect.Security.JwtUtil;
 import com.AutoConnect.AutoConnect.execption.NotFoundHandlerException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -52,15 +53,28 @@ public class UserService {
             if (userRequest.getSiren() == null || userRequest.getSiren().isBlank()) {
                 user.setRole(Role.CUSTOMERS);
             } else {
+
                 user.setRole(Role.ENGINEER);
-                Garage  garage = restTemplateService.createGarage(userRequest);
+                String raw = user.getPassword();
+                if (raw != null && !raw.startsWith("$2a$") && !raw.startsWith("$2b$") && !raw.startsWith("$2y$")) {
+                    user.setPassword(encoder.encode(raw));
+                }
+                User created = userRepository.save(user);
+                Garage  garage = restTemplateService.createGarage(userRequest,created);
+
+
+
+                return UserMapper.UserToUserResponseDTO(created);
             }
 
         String raw = user.getPassword();
         if (raw != null && !raw.startsWith("$2a$") && !raw.startsWith("$2b$") && !raw.startsWith("$2y$")) {
             user.setPassword(encoder.encode(raw));
         }
-        return userRepository.save(user);
+        User created = userRepository.save(user);
+
+
+        return UserMapper.UserToUserResponseDTO(created);
     }
 
     public List<UserResponseDTO> findByRoleTechnicians(Role role){

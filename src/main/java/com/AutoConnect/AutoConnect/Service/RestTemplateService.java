@@ -5,6 +5,7 @@ import com.AutoConnect.AutoConnect.DTO.SirenApiResponseDTO;
 import com.AutoConnect.AutoConnect.DTO.UniteLegaleDTO;
 import com.AutoConnect.AutoConnect.DTO.UserRequestDTO;
 import com.AutoConnect.AutoConnect.Entity.Garage;
+import com.AutoConnect.AutoConnect.Entity.User;
 import com.AutoConnect.AutoConnect.Mapper.GarageMapper;
 import com.AutoConnect.AutoConnect.Repository.GarageRepository;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,7 @@ public class RestTemplateService {
 
     private final RestTemplate restTemplate = new RestTemplate();
 
-    public Garage createGarage(UserRequestDTO userRequest) {
+    public Garage createGarage(UserRequestDTO userRequest, User created) {
         String siren = userRequest.getSiren().replaceAll("\\s", "");
         String apiUrl = String.format("https://data.siren-api.fr/v3/unites_legales/%s", siren);
         String apiKey = "hC97pQlkGXrwCflW7sZW4VMowHDQY6Mo";
@@ -56,8 +57,8 @@ public class RestTemplateService {
             throw new RuntimeException("Adresse introuvable pour le SIREN : " + siren);
         }
 
-        Garage garage = GarageMapper.adressDTOToGarage(adress, userRequest);
-        garageRepository.save(garage);
+        Garage garage = GarageMapper.adressDTOToGarage(adress, userRequest, created);
+
 
 
 
