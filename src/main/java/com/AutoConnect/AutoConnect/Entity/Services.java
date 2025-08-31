@@ -15,25 +15,15 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Garage {
+public class Services {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String siren;
-    private String numeroVoie;
-    private String typeVoie;
-    private String libelleVoie;
-    private String codePostal;
-    private String libelleCommune;
-    private String codeCommune;
-    @OneToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private User user;
-    private Integer quantityTechnicians;
-    @OneToMany(mappedBy = "garage", cascade = CascadeType.ALL)
+    private String description;
+    @ManyToMany
+    private List<Garage> garages;
+    @ManyToMany
     @JsonBackReference
     private List<Appointment> appointments;
-
-
 }

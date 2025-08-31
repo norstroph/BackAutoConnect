@@ -1,9 +1,13 @@
 package com.AutoConnect.AutoConnect.Entity;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.AssertTrue;
 import lombok.*;
 
+import java.util.List;
 @Entity
 @Getter
 @Setter
@@ -22,5 +26,12 @@ public class User {
     private Role role;
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Garage garage;
+    @OneToMany(mappedBy = "customer")
+    @JsonBackReference
+    private List<Appointment> appointments;
 
+    @AssertTrue(message = "L'utilisateur doit avoir le rôle CUSTOMER")
+    public boolean isCustomer() {
+        return role == Role.CUSTOMER;
+    }
 }
