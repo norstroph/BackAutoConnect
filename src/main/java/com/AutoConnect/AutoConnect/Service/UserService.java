@@ -2,6 +2,7 @@ package com.AutoConnect.AutoConnect.Service;
 
 import com.AutoConnect.AutoConnect.DTO.UserRequestDTO;
 import com.AutoConnect.AutoConnect.DTO.UserResponseDTO;
+import com.AutoConnect.AutoConnect.DTO.UserloginRequestDTO;
 import com.AutoConnect.AutoConnect.Entity.Garage;
 import com.AutoConnect.AutoConnect.Entity.Role;
 import com.AutoConnect.AutoConnect.Entity.User;
@@ -35,14 +36,16 @@ public class UserService {
     }
 
    public UserResponseDTO saveTechnicians(UserRequestDTO userRequest) {
-       User user = UserMapper.UserResponseDTOToUser( saveUser(userRequest));
-            user.setRole(Role.TECHNICIAN);
+       User user = saveUser(userRequest);
+       User findId = userRepository.findById(user.getId())
+               .orElse(new User());
+            findId.setRole(Role.TECHNICIAN);
             User created = userRepository.save(user);
 
         return UserMapper.UserToUserResponseDTO(created) ;
     }
 
-    public UserResponseDTO saveUser(UserRequestDTO userRequest) {
+    public User saveUser(UserRequestDTO userRequest) {
 
         if (userRepository.existsByEmail(userRequest.getEmail())) {
             throw new NotFoundHandlerException("Email already exists");
@@ -61,18 +64,19 @@ public class UserService {
                 }
                 User created = userRepository.save(user);
                 Garage  garage = restTemplateService.createGarage(userRequest,created);
-
-                return UserMapper.UserToUserResponseDTO(created);
+                UserMapper.UserToUserResponseDTO(created);
+                return created;
             }
 
         String raw = user.getPassword();
         if (raw != null && !raw.startsWith("$2a$") && !raw.startsWith("$2b$") && !raw.startsWith("$2y$")) {
             user.setPassword(encoder.encode(raw));
         }
+
         User created = userRepository.save(user);
 
 
-        return UserMapper.UserToUserResponseDTO(created);
+        return created;
     }
 
     public List<UserResponseDTO> findByRoleTechnicians(Role role){
@@ -84,7 +88,7 @@ public class UserService {
                 .toList();
     }
 
-    public ResponseEntity<?> createToken(UserRequestDTO newUser){
+    public ResponseEntity<?> createToken(UserloginRequestDTO newUser){
         User user = userRepository.findByEmail(newUser.getEmail())
                 .orElseThrow(() -> new RuntimeException("User not found"));
         if (user == null || !encoder.matches(newUser.getPassword(), user.getPassword())) {

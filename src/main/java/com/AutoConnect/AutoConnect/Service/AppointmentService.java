@@ -2,16 +2,19 @@ package com.AutoConnect.AutoConnect.Service;
 
 import com.AutoConnect.AutoConnect.DTO.AppointmentRequestDTO;
 import com.AutoConnect.AutoConnect.DTO.ResponseAppointmentGarageDTO;
+import com.AutoConnect.AutoConnect.DTO.UserResponseDTO;
 import com.AutoConnect.AutoConnect.Entity.Appointment;
 import com.AutoConnect.AutoConnect.Entity.Garage;
 import com.AutoConnect.AutoConnect.Entity.Services;
 import com.AutoConnect.AutoConnect.Entity.User;
 import com.AutoConnect.AutoConnect.Mapper.AppointmentMapper;
+import com.AutoConnect.AutoConnect.Mapper.UserMapper;
 import com.AutoConnect.AutoConnect.Repository.AppointmentRepository;
 import com.AutoConnect.AutoConnect.Repository.GarageRepository;
 import com.AutoConnect.AutoConnect.Repository.ServiceRepository;
 import com.AutoConnect.AutoConnect.Repository.UserRepository;
 import com.AutoConnect.AutoConnect.Security.JwtUtil;
+import jakarta.transaction.Transactional;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -54,7 +57,7 @@ public class AppointmentService {
         return appointmentRequestDTO;
     }
 
-
+    @Transactional
     public List<ResponseAppointmentGarageDTO> getAllGarageAppointement(String authHeader) {
         String token = authHeader.replace("Bearer ", "");
         String userEmail = jwtUtil.extractEmail(token);
@@ -70,8 +73,9 @@ public class AppointmentService {
             User customer = appointment.getCustomer();
             User technician = appointment.getTechnician();
             List<Services> services = appointment.getService();
-            ResponseAppointmentGarageDTO responseAppointmentGarageDTO = AppointmentMapper.responseAppointmentGarageDTO(appointment,customer,technician,services);
-           responseList.add(responseAppointmentGarageDTO);
+
+            ResponseAppointmentGarageDTO responseAppointmentGarageDTO = AppointmentMapper.responseAppointmentGarageDTO(appointment, customer, technician, services);
+            responseList.add(responseAppointmentGarageDTO);
             /*for(Services service : services){
                 String newServicesName =  service.getName();
                 String ServiceDescription = service.getDescription();
@@ -79,9 +83,16 @@ public class AppointmentService {
             }*/
 
         }
-
         return responseList;
 
+    }
+
+    public UserResponseDTO addTechnicianToAppointment(Long idAppointment, Long idTechnician) {
+        Appointment appointment = appointemantRepository.findById(idAppointment).orElseThrow(() -> new RuntimeException("appointment not found"));
+        User tech = userRepository.findById(idTechnician).orElseThrow(() -> new RuntimeException("UserTech not found"));
+
+        appointemantRepository.updateTech(idAppointment, tech);
+        return UserMapper.UserToUserResponseDTO(tech);
     }
 }
 

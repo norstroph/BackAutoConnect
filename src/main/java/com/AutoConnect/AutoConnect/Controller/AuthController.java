@@ -2,7 +2,9 @@ package com.AutoConnect.AutoConnect.Controller;
 
 import com.AutoConnect.AutoConnect.DTO.UserRequestDTO;
 import com.AutoConnect.AutoConnect.DTO.UserResponseDTO;
+import com.AutoConnect.AutoConnect.DTO.UserloginRequestDTO;
 import com.AutoConnect.AutoConnect.Entity.User;
+import com.AutoConnect.AutoConnect.Mapper.UserMapper;
 import com.AutoConnect.AutoConnect.Repository.UserRepository;
 import com.AutoConnect.AutoConnect.Security.JwtUtil;
 import com.AutoConnect.AutoConnect.Service.UserService;
@@ -30,11 +32,12 @@ public class AuthController {
     }
     @PostMapping("/created")
     public ResponseEntity<UserResponseDTO> createUser(@Valid @RequestBody UserRequestDTO userRequest) {
-        return new ResponseEntity<>(userService.saveUser(userRequest), HttpStatus.CREATED);
+        User newuser = userService.saveUser(userRequest);
+        return new ResponseEntity<>( UserMapper.UserToUserResponseDTO(newuser), HttpStatus.CREATED);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@Valid @RequestBody UserRequestDTO newUser){
+    public ResponseEntity<?> login(@Valid @RequestBody UserloginRequestDTO newUser){
         return userService.createToken(newUser);
     }
 

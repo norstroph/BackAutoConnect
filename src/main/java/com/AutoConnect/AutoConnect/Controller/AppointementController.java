@@ -25,9 +25,5 @@ public class AppointementController {
     return new  ResponseEntity<>(appointmentService.saveAppointment(appointemantRequestDTO,authHeader), HttpStatus.CREATED);
     };
 
-    @PutMapping
-    public ResponseEntity<UserResponseDTO> addTechnicianToAppointment(@RequestHeader("Authorization") String authHeader){
-        return new  ResponseEntity<>(appointmentService.addTechnicianToAppointment(authHeader), HttpStatus.CREATED);
-    }
 
 }

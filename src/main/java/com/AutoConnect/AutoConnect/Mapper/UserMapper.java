@@ -29,4 +29,14 @@ public class UserMapper {
         return user;
     }
 
+    public static User UserRequestWithoutinstantiationToUser(UserRequestDTO userRequestDTO){
+        User user = new User();
+        user.setEmail(userRequestDTO.getEmail());
+        user.setUsername(userRequestDTO.getSurname());
+        user.setName(userRequestDTO.getName());
+        user.setPassword(userRequestDTO.getPassword());
+        user.setPhone(userRequestDTO.getPhone());
+        return user;
+    }
+
 }
