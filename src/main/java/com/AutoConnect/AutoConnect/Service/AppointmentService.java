@@ -1,6 +1,7 @@
 package com.AutoConnect.AutoConnect.Service;
 
 import com.AutoConnect.AutoConnect.DTO.AppointmentRequestDTO;
+import com.AutoConnect.AutoConnect.DTO.ResponseAppointmentGarageDTO;
 import com.AutoConnect.AutoConnect.Entity.Appointment;
 import com.AutoConnect.AutoConnect.Entity.Garage;
 import com.AutoConnect.AutoConnect.Entity.Services;
@@ -11,9 +12,12 @@ import com.AutoConnect.AutoConnect.Repository.GarageRepository;
 import com.AutoConnect.AutoConnect.Repository.ServiceRepository;
 import com.AutoConnect.AutoConnect.Repository.UserRepository;
 import com.AutoConnect.AutoConnect.Security.JwtUtil;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AppointmentService {
@@ -32,7 +36,7 @@ public class AppointmentService {
         this.serviceRepository = serviceRepository;
     }
 
-    public Appointment saveAppointment(AppointmentRequestDTO appointmentRequestDTO, String authHeader) {
+    public AppointmentRequestDTO saveAppointment(AppointmentRequestDTO appointmentRequestDTO, String authHeader) {
         String token = authHeader.replace("Bearer ", "");
         String userEmail = jwtUtil.extractEmail(token);
         System.out.println(userEmail);
@@ -47,8 +51,38 @@ public class AppointmentService {
         Appointment appointment = AppointmentMapper.appointmentToAppointmentDTO(appointmentRequestDTO, user, garage, services);
         Appointment createdAppointment = appointemantRepository.save(appointment);
 
-        return createdAppointment;
+        return appointmentRequestDTO;
     }
 
 
+    public List<ResponseAppointmentGarageDTO> getAllGarageAppointement(String authHeader) {
+        String token = authHeader.replace("Bearer ", "");
+        String userEmail = jwtUtil.extractEmail(token);
+        User user = userRepository.findByEmail(userEmail)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        Garage GarageId = garageRepository.findById(user.getId())
+                .orElseThrow(() -> new RuntimeException("Garage not found"));
+        List<Appointment> appointmentListGarage = appointemantRepository.findByGarageId(GarageId.getId())
+                .orElseThrow(() -> new RuntimeException("appointmentListGarage not found"));
+        List<ResponseAppointmentGarageDTO> responseList = new ArrayList<>();
+
+        for (Appointment appointment : appointmentListGarage) {
+            User customer = appointment.getCustomer();
+            User technician = appointment.getTechnician();
+            List<Services> services = appointment.getService();
+            ResponseAppointmentGarageDTO responseAppointmentGarageDTO = AppointmentMapper.responseAppointmentGarageDTO(appointment,customer,technician,services);
+           responseList.add(responseAppointmentGarageDTO);
+            /*for(Services service : services){
+                String newServicesName =  service.getName();
+                String ServiceDescription = service.getDescription();
+                return
+            }*/
+
+        }
+
+        return responseList;
+
+    }
 }
+
+

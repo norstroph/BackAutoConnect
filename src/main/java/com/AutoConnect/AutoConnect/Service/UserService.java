@@ -62,8 +62,6 @@ public class UserService {
                 User created = userRepository.save(user);
                 Garage  garage = restTemplateService.createGarage(userRequest,created);
 
-
-
                 return UserMapper.UserToUserResponseDTO(created);
             }
 

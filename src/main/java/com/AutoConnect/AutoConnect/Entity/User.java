@@ -30,8 +30,4 @@ public class User {
     @JsonBackReference
     private List<Appointment> appointments;
 
-    @AssertTrue(message = "L'utilisateur doit avoir le rôle CUSTOMER")
-    public boolean isCustomer() {
-        return role == Role.CUSTOMER;
-    }
 }

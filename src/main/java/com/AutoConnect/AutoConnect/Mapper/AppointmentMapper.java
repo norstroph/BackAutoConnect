@@ -1,6 +1,7 @@
 package com.AutoConnect.AutoConnect.Mapper;
 
 import com.AutoConnect.AutoConnect.DTO.AppointmentRequestDTO;
+import com.AutoConnect.AutoConnect.DTO.ResponseAppointmentGarageDTO;
 import com.AutoConnect.AutoConnect.Entity.Appointment;
 import com.AutoConnect.AutoConnect.Entity.Garage;
 import com.AutoConnect.AutoConnect.Entity.Services;
@@ -18,5 +19,23 @@ public class AppointmentMapper {
         appointment1.setCustomer(user);
         appointment1.setService(services);
         return appointment1;
+    }
+
+    public static ResponseAppointmentGarageDTO responseAppointmentGarageDTO( Appointment appointment, User customer, User technician, List<Services> services){
+        ResponseAppointmentGarageDTO responseAppointmentGarageDTO = new ResponseAppointmentGarageDTO();
+        responseAppointmentGarageDTO.setStartDate(appointment.getStartDate());
+        responseAppointmentGarageDTO.setEndDate(appointment.getEndDate());
+        responseAppointmentGarageDTO.setServiceId(services.getFirst().getId());
+        responseAppointmentGarageDTO.setServiceName(services.getFirst().getName());
+        responseAppointmentGarageDTO.setServiceDescription(services.getFirst().getDescription());
+        responseAppointmentGarageDTO.setCustomerId( customer.getId());
+        responseAppointmentGarageDTO.setCustomerName(customer.getName());
+        responseAppointmentGarageDTO.setCustomerSurname(customer.getUsername());
+        responseAppointmentGarageDTO.setCustomerPhone(customer.getPhone());
+        responseAppointmentGarageDTO.setTechicianId(technician.getId());
+        responseAppointmentGarageDTO.setTechnicianName(technician.getName());
+        responseAppointmentGarageDTO.setTechnicianSurname(technician.getUsername());
+        return  responseAppointmentGarageDTO;
+
     }
 }
