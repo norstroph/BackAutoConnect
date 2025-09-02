@@ -8,7 +8,7 @@ import com.AutoConnect.AutoConnect.Entity.User;
 public class GarageMapper {
     public static Garage adressDTOToGarage(AdressDTO adress, UserRequestDTO userRequestDTO, User user){
         Garage garage = new Garage();
-        garage.setUser(user);
+        garage.setEngineer(user);
         garage.setSiren(userRequestDTO.getSiren());
         garage.setName(adress.getDenomination());
         garage.setCodeCommune(adress.getCodeCommune());

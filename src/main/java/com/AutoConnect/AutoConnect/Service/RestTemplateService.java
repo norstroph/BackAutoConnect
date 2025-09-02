@@ -1,9 +1,6 @@
 package com.AutoConnect.AutoConnect.Service;
 
-import com.AutoConnect.AutoConnect.DTO.AdressDTO;
-import com.AutoConnect.AutoConnect.DTO.SirenApiResponseDTO;
-import com.AutoConnect.AutoConnect.DTO.UniteLegaleDTO;
-import com.AutoConnect.AutoConnect.DTO.UserRequestDTO;
+import com.AutoConnect.AutoConnect.DTO.*;
 import com.AutoConnect.AutoConnect.Entity.Garage;
 import com.AutoConnect.AutoConnect.Entity.User;
 import com.AutoConnect.AutoConnect.Mapper.GarageMapper;
@@ -12,6 +9,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import org.springframework.http.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -64,7 +64,36 @@ public class RestTemplateService {
 
 
 
-        return garageRepository.save(garage);
+        return garage;
+    }
+
+    public Garage createGeocode(Garage garage){
+          RestTemplate restTemplate = new RestTemplate();
+
+          String BASE_URL = "https://data.geopf.fr/geocodage/search?q={number}+{Voie}+{NomVoie}+{codePostal}+{name}&limit=1";
+
+        ResponseEntity<GeocodeResponse> response = restTemplate.exchange(
+                BASE_URL,
+                HttpMethod.GET,
+                null,
+                GeocodeResponse.class,
+                garage.getNumeroVoie(),
+                garage.getTypeVoie(),
+                garage.getLibelleVoie(),
+                garage.getCodePostal(),
+                garage.getName()
+        );
+        GeocodeResponse geocodeResponse = response.getBody();
+        Feature newFeature =  geocodeResponse.getFeatures().getFirst();
+        Geometry geometry = newFeature.getGeometry();
+        Double longitude = geometry.getCoordinates().getFirst();
+        Double latitude = geometry.getCoordinates().get(1);
+        garage.setLongitude(longitude);
+         garage.setLatitude(latitude);
+         return garageRepository.save(garage);
+
+
+
     }
 
 }

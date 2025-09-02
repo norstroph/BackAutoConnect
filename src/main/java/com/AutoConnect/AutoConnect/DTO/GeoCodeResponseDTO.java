@@ -1,6 +1,5 @@
 package com.AutoConnect.AutoConnect.DTO;
 
-import com.AutoConnect.AutoConnect.Entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,8 +9,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserResponseDTO {
-    private String email;
-    private String name;
-    private String phone;
+public class GeoCodeResponseDTO {
+    private String label;
+    private String longitude;
+    private String latitude;
 }

@@ -6,8 +6,10 @@ import com.AutoConnect.AutoConnect.Security.JwtUtil;
 import com.AutoConnect.AutoConnect.Service.CustomUserDetailsService;
 
 import com.AutoConnect.AutoConnect.Service.UserService;
+import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -18,31 +20,25 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import java.util.List;
 
 @Configuration
+@AllArgsConstructor
 public class SecurityConfig {
     private final CustomUserDetailsService userDetailsService;
     private final JwtUtil jwtUtil;
     private final UserService userService;
     private final JwtFilter jwtFilter;
 
-    public SecurityConfig(CustomUserDetailsService userDetailsService , JwtUtil jwtUtil, UserService userService, JwtFilter jwtFilter) {
-        this.userDetailsService = userDetailsService;
-        this.jwtUtil = jwtUtil;
-        this.userService = userService;
-        this.jwtFilter = jwtFilter;
-    }
-
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
 
                 .csrf(csrf -> csrf.disable())
-
+                .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/technician/**").hasAnyRole("ADMIN","TECHNICIAN")
                         .requestMatchers("/customers/**").hasAnyRole("USER", "ADMIN","TECHNICIAN")
-                        .requestMatchers("/created").permitAll()
+                        .requestMatchers("/appointements").permitAll()
+                        .requestMatchers("/services").permitAll()
                         .requestMatchers("/auth/**").permitAll()
 
                         .requestMatchers(   "/swagger-ui/**",
