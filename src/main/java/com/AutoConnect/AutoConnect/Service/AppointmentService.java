@@ -2,12 +2,14 @@ package com.AutoConnect.AutoConnect.Service;
 
 import com.AutoConnect.AutoConnect.DTO.AppointmentRequestDTO;
 import com.AutoConnect.AutoConnect.DTO.ResponseAppointmentGarageDTO;
+import com.AutoConnect.AutoConnect.DTO.ServiceDTO;
 import com.AutoConnect.AutoConnect.DTO.UserResponseDTO;
 import com.AutoConnect.AutoConnect.Entity.Appointment;
 import com.AutoConnect.AutoConnect.Entity.Garage;
 import com.AutoConnect.AutoConnect.Entity.Services;
 import com.AutoConnect.AutoConnect.Entity.User;
 import com.AutoConnect.AutoConnect.Mapper.AppointmentMapper;
+import com.AutoConnect.AutoConnect.Mapper.ServiceMapper;
 import com.AutoConnect.AutoConnect.Mapper.UserMapper;
 import com.AutoConnect.AutoConnect.Repository.AppointmentRepository;
 import com.AutoConnect.AutoConnect.Repository.GarageRepository;
@@ -40,7 +42,8 @@ public class AppointmentService {
     }
 
     public AppointmentRequestDTO saveAppointment(AppointmentRequestDTO appointmentRequestDTO, String authHeader) {
-        String token = authHeader.replace("Bearer ", "");
+        String token = authHeader.replace("Bearer ", "").trim();
+
         String userEmail = jwtUtil.extractEmail(token);
         System.out.println(userEmail);
         System.out.println(token);
@@ -71,11 +74,16 @@ public class AppointmentService {
 
         for (Appointment appointment : appointmentListGarage) {
             User customer = appointment.getCustomer();
+            if (appointment.getTechnician() != null) {
+                User technician = appointment.getTechnician();
+            }
             User technician = appointment.getTechnician();
             List<Services> services = appointment.getService();
+            List<ServiceDTO> serviceDTOS = ServiceMapper.servicesToServicesDTO(services);
 
-            ResponseAppointmentGarageDTO responseAppointmentGarageDTO = AppointmentMapper.responseAppointmentGarageDTO(appointment, customer, technician, services);
+            ResponseAppointmentGarageDTO responseAppointmentGarageDTO = AppointmentMapper.responseAppointmentGarageDTO(appointment, customer, technician, serviceDTOS);
             responseList.add(responseAppointmentGarageDTO);
+
             /*for(Services service : services){
                 String newServicesName =  service.getName();
                 String ServiceDescription = service.getDescription();

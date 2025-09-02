@@ -18,9 +18,7 @@ import java.util.List;
 public class ResponseAppointmentGarageDTO {
     private Date startDate;
     private Date endDate;
-    private Long serviceId;
-    private String ServiceName;
-    private String ServiceDescription;
+    private List<ServiceDTO> serviceDTOS;
     private Long customerId;
     private String customerName;
     private String customerSurname;

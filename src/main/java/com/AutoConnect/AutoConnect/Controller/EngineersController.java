@@ -24,8 +24,8 @@ public class EngineersController {
     }
 
     @PostMapping("/createTech")
-    public ResponseEntity<UserResponseDTO> createUser(@Valid @RequestBody UserRequestDTO userRequest) {
-        return new ResponseEntity<>(userService.saveTechnicians(userRequest), HttpStatus.CREATED);
+    public ResponseEntity<UserResponseDTO> createUser(@RequestHeader("Authorization") String authHeader ,@Valid @RequestBody UserRequestDTO userRequest) {
+        return new ResponseEntity<>(userService.saveTechnicians(userRequest,authHeader ), HttpStatus.CREATED);
     }
 
     @GetMapping
@@ -35,5 +35,9 @@ public class EngineersController {
     @GetMapping("/allApointmentGarage")
     public ResponseEntity<List<ResponseAppointmentGarageDTO>> AllAppointmentGarage(@RequestHeader("Authorization") String authHeader){
         return new ResponseEntity<>(appointmentService.getAllGarageAppointement(authHeader),HttpStatus.FOUND);
+    }
+    @PutMapping("/{id-appointment}/{id-tech}")
+    public ResponseEntity<UserResponseDTO> addTechnicianToAppointment(@PathVariable Long idAppointment , @PathVariable Long idTech){
+        return new  ResponseEntity<>(appointmentService.addTechnicianToAppointment(idAppointment,idTech), HttpStatus.CREATED);
     }
 }
