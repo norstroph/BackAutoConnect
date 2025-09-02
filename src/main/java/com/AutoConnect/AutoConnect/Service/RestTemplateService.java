@@ -40,7 +40,7 @@ public class RestTemplateService {
 
 
         ResponseEntity<SirenApiResponseDTO> response = restTemplate.exchange(
-                apiUrl ,
+                apiUrl,
                 HttpMethod.GET,
                 entity,
                 SirenApiResponseDTO.class
@@ -93,6 +93,25 @@ public class RestTemplateService {
          return garageRepository.save(garage);
 
 
+
+    }
+
+    public DataDTO getMarkCarApi() {
+
+        RestTemplate restTemplate = new RestTemplate();
+        String url = "https://carapi.app/api/makes/v2";
+
+        ResponseEntity<DataDTO> response = restTemplate.exchange(
+                url,
+                HttpMethod.GET,
+                null,
+                DataDTO.class
+
+
+        );
+
+        DataDTO dataDTO  = response.getBody();
+        return dataDTO;
 
     }
 
