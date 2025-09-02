@@ -15,12 +15,14 @@ import java.util.List;
 @RequestMapping("/services")
 public class ServicesController {
    private final RepairService repairService;
+
    public ServicesController(RepairService repairService){
        this.repairService = repairService;
    }
+
    @GetMapping
     public ResponseEntity<List<Services>> getAllServices(){
-       return new ResponseEntity<>(repairService.getAllService(), HttpStatus.FOUND);
+       return new ResponseEntity<>(repairService.getAllService(), HttpStatus.OK);
    }
 
 }

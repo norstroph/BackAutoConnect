@@ -1,4 +1,4 @@
-INSERT IGNORE INTO services (name, description)
+INSERT INTO services (name, description)
 VALUES ('Vidange moteur',
         'Remplacement de l’huile moteur et du filtre à huile pour assurer le bon fonctionnement du moteur.'),
        ('Changement de pneus', 'Montage, équilibrage et remplacement des pneus usés.'),

@@ -9,9 +9,11 @@ import java.util.List;
 @Service
 public class RepairService {
     private final ServiceRepository serviceRepository;
+
     public RepairService(ServiceRepository serviceRepository){
         this.serviceRepository = serviceRepository;
     }
+
     public List<Services> getAllService(){
         return serviceRepository.findAll();
     }

@@ -38,7 +38,7 @@ public class SecurityConfig {
                         .requestMatchers("/technician/**").hasAnyRole("ADMIN","TECHNICIAN")
                         .requestMatchers("/customers/**").hasAnyRole("USER", "ADMIN","TECHNICIAN")
                         .requestMatchers("/appointements").permitAll()
-                        .requestMatchers("/services").permitAll()
+                        .requestMatchers("/services/**").permitAll()
                         .requestMatchers("/auth/**").permitAll()
 
                         .requestMatchers(   "/swagger-ui/**",
@@ -48,6 +48,7 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+
 
         return http.build();
     }
@@ -68,4 +69,5 @@ public class SecurityConfig {
 
         return source;
     }
+
 }
