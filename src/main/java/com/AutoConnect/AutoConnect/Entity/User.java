@@ -24,10 +24,12 @@ public class User {
     private String phone;
     @Enumerated(EnumType.STRING)
     private Role role;
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @ManyToOne
+    @JoinColumn(name = "garage_id")
     private Garage garage;
     @OneToMany(mappedBy = "customer")
     @JsonBackReference
     private List<Appointment> appointments;
+
 
 }
