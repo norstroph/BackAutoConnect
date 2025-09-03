@@ -1,6 +1,7 @@
 package com.AutoConnect.AutoConnect.Controller;
 
 
+import com.AutoConnect.AutoConnect.DTO.CarpiDTO;
 import com.AutoConnect.AutoConnect.DTO.DataDTO;
 import com.AutoConnect.AutoConnect.Service.RestTemplateService;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,7 @@ public class CarApiController {
     }
 
     @GetMapping("/mark")
-    public ResponseEntity<DataDTO> getMarkCarApi() {
+    public ResponseEntity<CarpiDTO> getMarkCarApi() {
         return ResponseEntity.ok(restTemplateService.getMarkCarApi());
     }
 }

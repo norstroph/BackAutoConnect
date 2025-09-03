@@ -96,21 +96,20 @@ public class RestTemplateService {
 
     }
 
-    public DataDTO getMarkCarApi() {
+    public CarpiDTO getMarkCarApi() {
 
         RestTemplate restTemplate = new RestTemplate();
         String url = "https://carapi.app/api/makes/v2";
 
-        ResponseEntity<DataDTO> response = restTemplate.exchange(
+        ResponseEntity<CarpiDTO> response = restTemplate.exchange(
                 url,
                 HttpMethod.GET,
                 null,
-                DataDTO.class
-
+                CarpiDTO.class
 
         );
 
-        DataDTO dataDTO  = response.getBody();
+        CarpiDTO dataDTO  = response.getBody();
         return dataDTO;
 
     }
