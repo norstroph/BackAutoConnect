@@ -11,7 +11,6 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.http.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 @Service
@@ -60,10 +59,6 @@ public class RestTemplateService {
         Garage garage = GarageMapper.adressDTOToGarage(adress, userRequest, created);
 
 
-
-
-
-
         return garage;
     }
 
@@ -110,10 +105,28 @@ public class RestTemplateService {
         );
         CarpiDTO dataDTO  = response.getBody();
         List<DataDTO> dataResponse = dataDTO.getData();
-       /* DataDTO dataResponseDTO = dataDTO.getData().getFirst();
-       String dataResponseDTO1 = dataResponseDTO.getName();
-       DataDTO dataResponseDTO2 = new DataDTO();
-       dataResponseDTO2.setName(dataResponseDTO1);*/
+
+
+        return dataResponse ;
+
+    }
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    public List<DataDTO> getModelCarApi(String mark) {
+
+        RestTemplate restTemplate = new RestTemplate();
+        String url = "https://carapi.app/api/models/v2/?make={mark}";
+
+        ResponseEntity<CarpiDTO> response = restTemplate.exchange(
+                url,
+                HttpMethod.GET,
+                null,
+                CarpiDTO.class,
+                mark
+
+        );
+        CarpiDTO dataDTO  = response.getBody();
+        List<DataDTO> dataResponse = dataDTO.getData();
+
 
         return dataResponse ;
 
