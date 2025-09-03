@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 
 
 @RestController
@@ -22,7 +23,7 @@ public class CarApiController {
     }
 
     @GetMapping("/mark")
-    public ResponseEntity<CarpiDTO> getMarkCarApi() {
+    public ResponseEntity<List<DataDTO>> getMarkCarApi() {
         return ResponseEntity.ok(restTemplateService.getMarkCarApi());
     }
 }
