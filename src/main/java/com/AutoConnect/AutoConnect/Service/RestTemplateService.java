@@ -10,6 +10,7 @@ import org.springframework.web.client.RestTemplate;
 
 import org.springframework.http.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -129,7 +130,27 @@ public class RestTemplateService {
 
 
         return dataResponse ;
+    }
+/////////////////////////////////////////////
 
+    public YearsDTO[] getYearCarApi(String mark, String model) {
+
+        RestTemplate restTemplate = new RestTemplate();
+        String url = "https://carapi.app/api/years/v2?make={mark}&?models={model}";
+
+       List<YearsDTO> carpiDTO = new ArrayList<>();
+
+       ResponseEntity<YearsDTO[]> response = restTemplate.getForEntity(
+                url,
+                YearsDTO[].class,
+                mark,
+                model
+
+        );
+        YearsDTO[] dataDTO = response.getBody();
+
+
+        return dataDTO;
     }
 
 }

@@ -1,8 +1,9 @@
 package com.AutoConnect.AutoConnect.Controller;
 
 
-import com.AutoConnect.AutoConnect.DTO.CarpiDTO;
+
 import com.AutoConnect.AutoConnect.DTO.DataDTO;
+import com.AutoConnect.AutoConnect.DTO.YearsDTO;
 import com.AutoConnect.AutoConnect.Service.RestTemplateService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,10 +31,11 @@ public class CarApiController {
         return ResponseEntity.ok(restTemplateService.getModelCarApi(make));
     }
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /*
+
     @GetMapping("/year")
-    public ResponseEntity<List<DataDTO>> getYearCarApi(@RequestParam String mark, @RequestParam String model) {
-        return ResponseEntity.ok(restTemplateService.getYearCarApi(mark, model));
+    public ResponseEntity<YearsDTO[]> getYearCarApi(@RequestParam String make, @RequestParam String model) {
+        return ResponseEntity.ok(restTemplateService.getYearCarApi(make, model));
     }
-     */
+
+
 }
