@@ -1,11 +1,24 @@
-INSERT INTO services (name, description)
-VALUES ('Vidange moteur',
-        'Remplacement de l’huile moteur et du filtre à huile pour assurer le bon fonctionnement du moteur.'),
-       ('Changement de pneus', 'Montage, équilibrage et remplacement des pneus usés.'),
-       ('Freinage', 'Contrôle et remplacement des plaquettes et disques de frein.'),
-       ('Contrôle technique',
-        'Vérification complète du véhicule pour répondre aux normes de sécurité et environnementales.'),
-       ('Climatisation', 'Recharge et entretien du système de climatisation du véhicule.');
+
+INSERT IGNORE INTO services (name, description) VALUES
+('Vidange + Filtre à Huile',
+ 'Remplacement de l’huile moteur et du filtre à huile ; contrôle des niveaux et remise à zéro de l’indicateur.'),
+('Kit de Courroie de Distribution (changement)',
+ 'Remplacement du kit de distribution : courroie, galets tendeurs et pompe à eau si applicable.'),
+('Disques et Plaquettes Avant (changement)',
+ 'Remplacement des disques et plaquettes de frein avant ; nettoyage/rodage et purge si nécessaire.'),
+('Kit d’Embrayage (changement)',
+ 'Remplacement du mécanisme, du disque et de la butée d’embrayage ; contrôle émetteur/récepteur.'),
+('Plaquettes Avant (changement)',
+ 'Remplacement des plaquettes de frein avant ; contrôle de l’usure et de l’épaisseur des disques.'),
+('Amortisseurs Avant (changement)',
+ 'Remplacement des amortisseurs avant (avec coupelles si nécessaire) ; contrôle de la géométrie.'),
+('Kit d’Embrayage et Volant Moteur (changement)',
+ 'Remplacement du kit d’embrayage et du volant moteur (bi-masse le cas échéant).'),
+('Filtre d’Habitacle (changement)',
+ 'Remplacement du filtre d’habitacle (pollen/charbon actif) pour améliorer la qualité d’air et le désembuage.'),
+('Disques et Plaquettes Arrière (changement)',
+ 'Remplacement des disques et plaquettes arrière ; réglage/contrôle du frein de stationnement.');
+
 
 INSERT INTO services_garages (services_id, garages_id)
 VALUES (1, 1),
@@ -40,8 +53,7 @@ VALUES (1, 1),
        (7, 2);
 
 
-
-       INSERT INTO garage_services ( garage_id,services_id)
+      INSERT INTO garage_services ( garage_id,services_id)
        VALUES (1, 1),
               (1, 2),
               (1, 3),
@@ -72,3 +84,4 @@ VALUES (1, 1),
               (6, 3),
               (7, 1),
               (7, 2);
+
