@@ -42,5 +42,7 @@ public class Garage {
     private List<User> technicians;
     private Double longitude;
     private Double latitude;
+    @ManyToMany
+    private List<Services> Services;
 
 }

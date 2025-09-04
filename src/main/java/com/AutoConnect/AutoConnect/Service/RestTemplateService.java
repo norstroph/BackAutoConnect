@@ -118,5 +118,32 @@ public class RestTemplateService {
         return dataResponse ;
 
     }
+    public  CoordinateDTO createGeocodeUser(String addressUser){
+        RestTemplate restTemplate = new RestTemplate();
+
+        String BASE_URL = "https://data.geopf.fr/geocodage/search?q={addressUser}&limit=1";
+
+        ResponseEntity<GeocodeResponse> response = restTemplate.exchange(
+                BASE_URL,
+                HttpMethod.GET,
+                null,
+                GeocodeResponse.class,
+                addressUser
+
+        );
+        GeocodeResponse geocodeResponse = response.getBody();
+        Feature newFeature =  geocodeResponse.getFeatures().getFirst();
+        Geometry geometry = newFeature.getGeometry();
+        Double longitude = geometry.getCoordinates().getFirst();
+        Double latitude = geometry.getCoordinates().get(1);
+        CoordinateDTO coordinateDTO = new CoordinateDTO();
+        coordinateDTO.setLongitude(longitude);
+        coordinateDTO.setLatitude(latitude);
+
+        return coordinateDTO;
+
+
+
+    }
 
 }
