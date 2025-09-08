@@ -30,11 +30,16 @@ public class UsersearchGarageService {
         this.restTemplateService = restTemplateService;
 
     }
-
-
-    public  List<GarageDTO>  getGarageForUser(String Coordinate, Double radiusKm, List<ServiceDTO> services) {
+    public  List<GarageDTO> getGarageForUser(String Coordinate, Double radiusKm, List<ServiceDTO> services){
         CoordinateDTO user = restTemplateService.createGeocodeUser(Coordinate);
-        GlobalPosition userPos = new GlobalPosition(user.getLatitude(), user.getLongitude(), 0.0);
+
+        return  getGarageForUserWithGPS(user.getLatitude(), user.getLongitude(),radiusKm, services);
+    }
+
+    public  List<GarageDTO>  getGarageForUserWithGPS(Double latitude, Double longitude ,Double radiusKm, List<ServiceDTO> services) {
+
+
+        GlobalPosition userPos = new GlobalPosition(latitude, longitude , 0.0);
         GeodeticCalculator geoCalc = new GeodeticCalculator();
 
         List<Garage> listeGarageKm = garageRepository.findAll().stream()
@@ -69,7 +74,12 @@ public class UsersearchGarageService {
         List<GarageDTO> finalRendurlisteGarage = finalListGarage.stream()
                 .map(GarageMapper::garageToGarageDTo)
                 .toList();
-
+        if (!finalRendurlisteGarage.isEmpty()) {
+            System.out.println("Liste des garages :");
+            finalRendurlisteGarage.forEach(garage -> System.out.println(garage));
+        } else {
+            System.out.println("Aucun garage trouvé.");
+        }
 
         return finalRendurlisteGarage;
 

@@ -13,4 +13,9 @@ import org.gavaghan.geodesy.GlobalCoordinates;
 public class CoordinateDTO {
     private Double longitude ;
     private Double Latitude;
+
+    @Override
+    public String toString() {
+        return "CoordinateDTO{lat=" + Latitude + ", lon=" + longitude + "}";
+    }
 }
