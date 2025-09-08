@@ -4,6 +4,7 @@ import com.AutoConnect.AutoConnect.DTO.GarageDTO;
 import com.AutoConnect.AutoConnect.DTO.ServiceDTO;
 import com.AutoConnect.AutoConnect.Entity.Services;
 import com.AutoConnect.AutoConnect.Service.UsersearchGarageService;
+import org.apache.coyote.http11.upgrade.UpgradeServletOutputStream;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,5 +22,10 @@ public class GarageController {
     @PostMapping
     public ResponseEntity<List<GarageDTO>> getAllGArage(@RequestParam String Coordinate,@RequestParam Double radiusKm,@RequestBody List<ServiceDTO> services){
      return new ResponseEntity<>(usersearchGarageService.getGarageForUser(Coordinate, radiusKm, services), HttpStatus.CREATED);
+    }
+
+    @PostMapping("/gps")
+    public ResponseEntity<List<GarageDTO>> getAllGArageWithGPS(@RequestParam Double latitude,@RequestParam Double longitude,@RequestParam Double radiusKm,@RequestBody List<ServiceDTO> services) {
+        return new ResponseEntity<>(usersearchGarageService.getGarageForUserWithGPS(latitude, longitude, radiusKm, services), HttpStatus.CREATED);
     }
 }

@@ -11,6 +11,8 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ServiceDTO {
     private Long id;
-    private String name;
-    private String description;
+    @Override
+    public String toString() {
+        return "just a service" + id + "}";
+    }
 }

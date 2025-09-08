@@ -12,8 +12,6 @@ public class ServiceMapper {
                 .map(s -> {
                     ServiceDTO sdto = new ServiceDTO();
                     sdto.setId(s.getId());
-                    sdto.setName(s.getName());
-                    sdto.setDescription(s.getDescription());
                     return sdto;
                 })
                 .toList();
