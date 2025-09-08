@@ -38,7 +38,6 @@ public class UsersearchGarageService {
 
     public  List<GarageDTO>  getGarageForUserWithGPS(Double latitude, Double longitude ,Double radiusKm, List<ServiceDTO> services) {
 
-
         GlobalPosition userPos = new GlobalPosition(latitude, longitude , 0.0);
         GeodeticCalculator geoCalc = new GeodeticCalculator();
 
