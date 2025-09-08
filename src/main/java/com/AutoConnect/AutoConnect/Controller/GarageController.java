@@ -23,6 +23,7 @@ public class GarageController {
     public ResponseEntity<List<GarageDTO>> getAllGArage(@RequestParam String Coordinate,@RequestParam Double radiusKm,@RequestBody List<ServiceDTO> services){
      return new ResponseEntity<>(usersearchGarageService.getGarageForUser(Coordinate, radiusKm, services), HttpStatus.CREATED);
     }
+
     @PostMapping("/gps")
     public ResponseEntity<List<GarageDTO>> getAllGArageWithGPS(@RequestParam Double latitude,@RequestParam Double longitude,@RequestParam Double radiusKm,@RequestBody List<ServiceDTO> services) {
         return new ResponseEntity<>(usersearchGarageService.getGarageForUserWithGPS(latitude, longitude, radiusKm, services), HttpStatus.CREATED);
