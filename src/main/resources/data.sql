@@ -2,13 +2,44 @@
 -- 1. Services
 -- ==========================
 INSERT INTO services (id, name, description) VALUES
-(1, 'Vidange + Filtre à Huile', 'Remplacement huile moteur et filtre à huile'),
-(2, 'Freins', 'Contrôle et remplacement plaquettes/disques'),
-(3, 'Pneumatiques', 'Changement pneus + équilibrage'),
-(4, 'Climatisation', 'Recharge et entretien clim'),
-(5, 'Distribution', 'Courroie de distribution + pompe à eau'),
-(6, 'Batterie', 'Test et remplacement batterie'),
-(7, 'Diagnostic', 'Diagnostic électronique complet');
+
+(1,  'Vidange + Filtre à Huile',
+     'Vidange moteur (huile conforme constructeur), remplacement du filtre à huile et du joint de bouchon, contrôle d''étanchéité et des niveaux, remise à zéro de l''indicateur de maintenance, contrôle visuel (durites, fuites, courroies accessoires).'),
+
+(2,  'Pneumatiques',
+     'Démontage/remontage pneus, remplacement de valve si nécessaire, équilibrage des roues, contrôle de l''usure et des pressions, resserrage au couple, réinitialisation TPMS le cas échéant.'),
+
+(3,  'Freins',
+     'Contrôle épaisseur disques/plaquettes, remplacement si hors tolérance, nettoyage des portées et moyeux, graissage des coulisseaux (hors réfection d’étrier), purge et remplacement du liquide de frein selon préconisations, essai routier.'),
+
+(4,  'Batterie',
+     'Test de capacité batterie et de la charge alternateur, remplacement par une batterie équivalente, enregistrement BMS si applicable, nettoyage/serrage des cosses, contrôle de consommation parasite de base.'),
+
+(5,  'Distribution',
+     'Remplacement kit distribution (courroie/chaîne selon modèle) avec galets et, si prévu, pompe à eau; calage et serrages au couple; remplissage/purge du liquide de refroidissement; contrôles finaux et essai. Hors pièces ou déposes complémentaires non prévues.'),
+
+(6,  'Amortisseurs',
+     'Remplacement amortisseurs avant/arrière, contrôle et remplacement des butées/coupelles si besoin, serrages aux couples constructeur, vérification soufflets et biellettes; recommandation d''une géométrie après intervention.'),
+
+(7,  'Climatisation',
+     'Contrôle d''étanchéité, tirage au vide, recharge de gaz (R134a/R1234yf selon véhicule), ajout de traceur UV, test de performance (température soufflage), désinfection de l''habitacle en option.'),
+
+(8,  'Diagnostic électronique',
+     'Lecture des codes défauts via valise multimarque, effacement si pertinent, mesures de paramètres en temps réel, capture d''écrans/rapport synthèse, recommandations de tests complémentaires si nécessaire.'),
+
+(9,  'Géométrie / Parallélisme',
+     'Mesure 3D des angles de train(s), réglage du pincement/carrossage/chasse si réglables, centrage volant, impression d''un rapport avant/après; contrôle jeu de direction et silent-blocs.'),
+
+(10, 'Filtres air & habitacle',
+     'Remplacement du filtre à air moteur et du filtre d''habitacle (charbon actif possible), nettoyage du logement, contrôle du conduit d''admission, vérification des débits et de l''aspiration anormale.'),
+
+(11, 'Bougies / Préchauffage',
+     'Remplacement bougies d''allumage (essence) ou de préchauffage (diesel), contrôle bobines/antiparasites ou relais de préchauffage, respect du couple de serrage constructeur, effacement des voyants si présent.'),
+
+(12, 'Embrayage',
+     'Remplacement kit embrayage (mécanisme, disque, butée), purge hydraulique si nécessaire, contrôle du volant moteur, serrages au couple, essai routier et réglage du jeu de pédale si applicable (hors volant moteur si non prévu).');
+
+
 
 -- ==========================
 -- 2. Garages
