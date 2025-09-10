@@ -18,7 +18,7 @@ public class AppointmentMapper {
         appointment1.setEndDate(appointment.getEndDate());
         appointment1.setGarage(garage);
         appointment1.setCustomer(user);
-        appointment1.setService(services);
+        appointment1.setServices(services);
         return appointment1;
     }
 

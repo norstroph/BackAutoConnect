@@ -35,8 +35,14 @@ public class Appointment {
     private Double totalePrice;
     private String comment;
     @ManyToMany
+    @JoinTable(
+            name = "appointment_services", // nom de la table de jointure
+            joinColumns = @JoinColumn(name = "appointment_id"), // colonne pour Appointment
+            inverseJoinColumns = @JoinColumn(name = "services_id") // colonne pour Services
+    )
     @JsonManagedReference
-    private List<Services> service;
+    private List<Services> services;
+
 
 
 
