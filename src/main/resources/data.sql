@@ -1,8 +1,7 @@
--- ==========================
--- 1. Services
--- ==========================
+-- =======================
+-- SERVICES
+-- =======================
 INSERT INTO services (id, name, description) VALUES
-
 (1,  'Vidange + Filtre à Huile',
      'Vidange moteur (huile conforme constructeur), remplacement du filtre à huile et du joint de bouchon, contrôle d''étanchéité et des niveaux, remise à zéro de l''indicateur de maintenance, contrôle visuel (durites, fuites, courroies accessoires).'),
 
@@ -40,78 +39,77 @@ INSERT INTO services (id, name, description) VALUES
      'Remplacement kit embrayage (mécanisme, disque, butée), purge hydraulique si nécessaire, contrôle du volant moteur, serrages au couple, essai routier et réglage du jeu de pédale si applicable (hors volant moteur si non prévu).');
 
 
-
--- ==========================
--- 2. Garages
--- ==========================
+-- =======================
+-- GARAGES (10 Tours + 10 Ligueil)
+-- =======================
 INSERT INTO garage (id, name, siren, numero_voie, type_voie, libelle_voie, code_postal, libelle_commune, code_commune, quantity_technicians, longitude, latitude)
 VALUES
-(1, 'Garage Dacia Tours', '741852963', '22', 'BD', 'Béranger', '37000', 'Tours', '37261', 8, 0.688, 47.394),
-(2, 'Garage Renault Lyon', '741852964', '10', 'RUE', 'Victor Hugo', '69002', 'Lyon', '69382', 12, 4.835, 45.764),
-(3, 'Peugeot Marseille', '741852965', '5', 'AV', 'Prado', '13008', 'Marseille', '13208', 15, 5.387, 43.270),
-(4, 'Citroën Bordeaux', '741852966', '18', 'RUE', 'Sainte-Catherine', '33000', 'Bordeaux', '33063', 10, -0.579, 44.837),
-(5, 'Garage Opel Paris', '741852967', '50', 'BD', 'Haussmann', '75009', 'Paris', '75056', 20, 2.332, 48.876),
-(6, 'Garage Nissan Lille', '741852968', '12', 'RUE', 'Faidherbe', '59000', 'Lille', '59350', 7, 3.057, 50.629),
-(7, 'Toyota Nice', '741852969', '2', 'AV', 'Jean Médecin', '06000', 'Nice', '06088', 14, 7.265, 43.700),
-(8, 'Kia Nantes', '741852970', '30', 'RUE', 'Crébillon', '44000', 'Nantes', '44109', 9, -1.553, 47.218),
-(9, 'Fiat Strasbourg', '741852971', '8', 'RUE', 'des Grandes Arcades', '67000', 'Strasbourg', '67482', 11, 7.750, 48.573),
-(10, 'Hyundai Toulouse', '741852972', '16', 'RUE', 'd''Alsace-Lorraine', '31000', 'Toulouse', '31555', 13, 1.444, 43.604);
+-- Tours
+(1, 'Garage Dacia Tours', '741852963', '22', 'BD', 'BERANGER', '37000', 'TOURS', '37261', 8, 0.688, 47.394),
+(2, 'Garage Renault Tours Nord', '951753852', '10', 'AVENUE', 'DE L EUROPE', '37100', 'TOURS', '37261', 6, 0.70, 47.398),
+(3, 'Garage Peugeot Tours Sud', '258963147', '5', 'ROUTE', 'DE CHINON', '37200', 'TOURS', '37261', 7, 0.675, 47.385),
+(4, 'Garage Citroën Tours Centre', '369258147', '7', 'RUE', 'NATIONALE', '37000', 'TOURS', '37261', 9, 0.682, 47.390),
+(5, 'Garage Opel Tours', '159753486', '14', 'PLACE', 'JEAN JAURÈS', '37000', 'TOURS', '37261', 4, 0.695, 47.392),
+(6, 'Garage BMW Tours', '753159852', '8', 'RUE', 'DES MINIMES', '37000', 'TOURS', '37261', 10, 0.678, 47.389),
+(7, 'Garage Mercedes Tours', '456123789', '11', 'RUE', 'LAMARTINE', '37000', 'TOURS', '37261', 12, 0.685, 47.396),
+(8, 'Garage Ford Tours', '852456963', '9', 'RUE', 'DES HALLES', '37000', 'TOURS', '37261', 5, 0.692, 47.388),
+(9, 'Garage Toyota Tours', '147258369', '15', 'AVENUE', 'DE GRAMMONT', '37000', 'TOURS', '37261', 6, 0.689, 47.395),
+(10, 'Garage Kia Tours', '963852741', '6', 'BD', 'HEURTELOUP', '37000', 'TOURS', '37261', 3, 0.684, 47.387),
 
--- ==========================
--- 3. Users (password: Azerty12&)
--- ==========================
+-- Ligueil
+(11, 'Garage Barrault', '415165158', '12', 'RUE', 'DE DESCARTES', '37240', 'LIGUEIL', '37130', 5, 0.795, 47.027),
+(12, 'Garage Renault Ligueil', '523489652', '8', 'AVENUE', 'DU 8 MAI', '37240', 'LIGUEIL', '37130', 4, 0.800, 47.030),
+(13, 'Garage Peugeot Ligueil', '874596321', '5', 'ROUTE', 'DE LOCHES', '37240', 'LIGUEIL', '37130', 6, 0.790, 47.025),
+(14, 'Garage Citroën Ligueil', '963852963', '3', 'RUE', 'DES ECOLES', '37240', 'LIGUEIL', '37130', 7, 0.805, 47.029),
+(15, 'Garage Opel Ligueil', '159753486', '6', 'PLACE', 'DE L EGLISE', '37240', 'LIGUEIL', '37130', 3, 0.793, 47.028),
+(16, 'Garage BMW Ligueil', '753951852', '9', 'RUE', 'DE TOURS', '37240', 'LIGUEIL', '37130', 9, 0.797, 47.032),
+(17, 'Garage Mercedes Ligueil', '456852147', '7', 'RUE', 'DU COMMERCE', '37240', 'LIGUEIL', '37130', 8, 0.799, 47.026),
+(18, 'Garage Ford Ligueil', '852369147', '4', 'AVENUE', 'DES SPORTS', '37240', 'LIGUEIL', '37130', 4, 0.802, 47.031),
+(19, 'Garage Toyota Ligueil', '147369258', '10', 'RUE', 'DU STADE', '37240', 'LIGUEIL', '37130', 5, 0.794, 47.024),
+(20, 'Garage Kia Ligueil', '963741852', '11', 'BD', 'DE LA GARE', '37240', 'LIGUEIL', '37130', 6, 0.796, 47.033);
+
+-- =======================
+-- USERS (liés aux garages)
+-- =======================
 INSERT INTO user (id, username, name, email, password, phone, role, garage_id) VALUES
-(1, 'jdubois', 'Jean Dubois', 'jean.dubois@example.com', '$2a$10$Dow1kTr4a0QDD7xH.uZ8V.SSfxC8pnvNUnzZcCkBt/j0T1YFFxC1S', '0600000001', 'ENGINEER', 1),
-(2, 'mpetit', 'Marie Petit', 'marie.petit@example.com', '$2a$10$Dow1kTr4a0QDD7xH.uZ8V.SSfxC8pnvNUnzZcCkBt/j0T1YFFxC1S', '0600000002', 'ENGINEER', 2),
-(3, 'tbernard', 'Thomas Bernard', 'thomas.bernard@example.com', '$2a$10$Dow1kTr4a0QDD7xH.uZ8V.SSfxC8pnvNUnzZcCkBt/j0T1YFFxC1S', '0600000003', 'ENGINEER', 3),
-(4, 'sroux', 'Sophie Roux', 'sophie.roux@example.com', '$2a$10$Dow1kTr4a0QDD7xH.uZ8V.SSfxC8pnvNUnzZcCkBt/j0T1YFFxC1S', '0600000004', 'ENGINEER', 4),
-(5, 'pdupont', 'Paul Dupont', 'paul.dupont@example.com', '$2a$10$Dow1kTr4a0QDD7xH.uZ8V.SSfxC8pnvNUnzZcCkBt/j0T1YFFxC1S', '0600000005', 'ENGINEER', 5),
-(6, 'ccarrier', 'Claire Carrier', 'claire.carrier@example.com', '$2a$10$Dow1kTr4a0QDD7xH.uZ8V.SSfxC8pnvNUnzZcCkBt/j0T1YFFxC1S', '0600000006', 'ENGINEER', 6),
-(7, 'flaurent', 'François Laurent', 'francois.laurent@example.com', '$2a$10$Dow1kTr4a0QDD7xH.uZ8V.SSfxC8pnvNUnzZcCkBt/j0T1YFFxC1S', '0600000007', 'ENGINEER', 7),
-(8, 'abelin', 'Alice Belin', 'alice.belin@example.com', '$2a$10$Dow1kTr4a0QDD7xH.uZ8V.SSfxC8pnvNUnzZcCkBt/j0T1YFFxC1S', '0600000008', 'ENGINEER', 8),
-(9, 'mchevalier', 'Marc Chevalier', 'marc.chevalier@example.com', '$2a$10$Dow1kTr4a0QDD7xH.uZ8V.SSfxC8pnvNUnzZcCkBt/j0T1YFFxC1S', '0600000009', 'ENGINEER', 9),
-(10, 'jmartin', 'Julie Martin', 'julie.martin@example.com', '$2a$10$Dow1kTr4a0QDD7xH.uZ8V.SSfxC8pnvNUnzZcCkBt/j0T1YFFxC1S', '0600000010', 'ENGINEER', 10);
+(1, 'jdupont', 'Jean Dupont', 'jean.dupont@example.com', 'password', '0600000001', 'ENGINEER', 1),
+(2, 'mbernard', 'Marie Bernard', 'marie.bernard@example.com', 'password', '0600000002', 'TECHNICIAN', 1),
+(3, 'cpetit', 'Claude Petit', 'claude.petit@example.com', 'password', '0600000003', 'CUSTOMER', 2),
+(4, 'pduval', 'Paul Duval', 'paul.duval@example.com', 'password', '0600000004', 'TECHNICIAN', 2),
+(5, 'sroger', 'Sophie Roger', 'sophie.roger@example.com', 'password', '0600000005', 'ENGINEER', 3),
+(6, 'lmartin', 'Luc Martin', 'luc.martin@example.com', 'password', '0600000006', 'TECHNICIAN', 11),
+(7, 'mleclerc', 'Marc Leclerc', 'marc.leclerc@example.com', 'password', '0600000007', 'CUSTOMER', 12),
+(8, 'fblanc', 'François Blanc', 'francois.blanc@example.com', 'password', '0600000008', 'ENGINEER', 13),
+(9, 'epierre', 'Emma Pierre', 'emma.pierre@example.com', 'password', '0600000009', 'TECHNICIAN', 14),
+(10, 'aroux', 'Antoine Roux', 'antoine.roux@example.com', 'password', '0600000010', 'CUSTOMER', 15);
 
--- ==========================
--- 4. Garage ↔ Services
--- ==========================
+-- =======================
+-- GARAGE ↔ SERVICES (liaison N-N)
+-- =======================
 INSERT INTO garage_services (garage_id, services_id) VALUES
-(1,1),(1,2),(1,7),
-(2,2),(2,3),(2,4),
-(3,1),(3,3),(3,5),
-(4,1),(4,6),(4,7),
-(5,2),(5,3),(5,5),(5,6),
-(6,1),(6,4),(6,7),
-(7,2),(7,3),(7,6),
-(8,1),(8,5),(8,7),
-(9,3),(9,4),(9,6),
-(10,1),(10,2),(10,3),(10,7);
-
--- ==========================
--- 5. APPOINTMENTS
--- ==========================
-INSERT INTO appointment (id, garage_id, customer_id, technician_id, start_date, end_date, totale_price, comment) VALUES
-(1, 1, 3, 2, '2025-09-15 09:00:00', '2025-09-15 10:00:00', 89.99,  'Vidange + contrôle général'),
-(2, 2, 4, 2, '2025-09-16 14:30:00', '2025-09-16 15:30:00', 199.00, 'Remplacement plaquettes avant'),
-(3, 3, 5, 1, '2025-09-17 08:30:00', '2025-09-17 09:15:00', 59.00,  'Diagnostic électronique'),
-(4, 4, 6, 7, '2025-09-18 11:00:00', '2025-09-18 12:30:00', 320.00, 'Courroie + pompe à eau (distribution)'),
-(5, 5, 7, 8, '2025-09-19 10:00:00', '2025-09-19 11:00:00', 120.50, 'Test et remplacement batterie');
-
--- ==========================
--- 6. APPOINTMENT ↔ SERVICES (liaison N-N)
---    (nom attendu par JPA par défaut : appointment_services)
--- ==========================
-INSERT INTO appointment_services (appointment_id, services_id) VALUES
-(1, 1),  -- vidange
-(1, 7),  -- diagnostic
-(2, 3),  -- freins / pneumatiques (ici freins)
-(3, 7),  -- diagnostic
-(4, 5),  -- distribution
-(4, 6),  -- batterie (si on veut joindre plusieurs services à même RDV)
-(5, 6);  -- batterie
+(1,1),(1,2),(1,3),
+(2,1),(2,4),
+(3,2),(3,5),(3,6),
+(4,1),(4,7),
+(5,3),(5,4),(5,5),
+(6,2),(6,6),
+(7,1),(7,3),(7,5),
+(8,2),(8,4),(8,7),
+(9,1),(9,6),
+(10,3),(10,7),
+(11,1),(11,2),
+(12,3),(12,4),(12,5),
+(13,2),(13,6),
+(14,1),(14,7),
+(15,2),(15,3),
+(16,4),(16,5),(16,6),
+(17,1),(17,3),(17,7),
+(18,2),(18,4),
+(19,5),(19,6),
+(20,1),(20,2),(20,7);
 
 
--- Associer un engineer à chaque garage
+
 UPDATE garage SET user_id = 1 WHERE id = 1;
 UPDATE garage SET user_id = 2 WHERE id = 2;
 UPDATE garage SET user_id = 3 WHERE id = 3;
