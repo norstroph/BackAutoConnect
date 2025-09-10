@@ -20,7 +20,7 @@ public class GarageMapper {
         garage.setTypeVoie(adress.getTypeVoie());
         return garage;
     }
-    public static GarageDTO garageToGarageDTo(Garage garage){
+    public static GarageDTO garageToGarageDTo(Garage garage,User user){
         GarageDTO garageDTO = new GarageDTO();
         garageDTO.setName(garage.getName());
         garageDTO.setCodeCommune(garage.getCodeCommune());
@@ -32,6 +32,13 @@ public class GarageMapper {
         garageDTO.setLongitude(garage.getLongitude());
         garageDTO.setCodePostal(garage.getCodePostal());
         garageDTO.setTypeVoie(garage.getTypeVoie());
+        if (user != null) {
+            garageDTO.setPhone(user.getPhone());
+        } else {
+            garageDTO.setPhone(null);
+        }
+
+
         return garageDTO;
 
     };

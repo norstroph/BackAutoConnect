@@ -8,6 +8,7 @@ import com.AutoConnect.AutoConnect.Entity.Services;
 import com.AutoConnect.AutoConnect.Entity.User;
 import com.AutoConnect.AutoConnect.Mapper.GarageMapper;
 import com.AutoConnect.AutoConnect.Repository.GarageRepository;
+import com.AutoConnect.AutoConnect.Repository.UserRepository;
 import org.gavaghan.geodesy.Ellipsoid;
 import org.gavaghan.geodesy.GeodeticCalculator;
 import org.gavaghan.geodesy.GlobalPosition;
@@ -23,11 +24,13 @@ public class UsersearchGarageService {
     private final GarageRepository garageRepository;
     private final Ellipsoid reference = Ellipsoid.WGS84;
     private final RestTemplateService restTemplateService;
+    private final UserRepository userRepository;
 
 
-    public UsersearchGarageService(RestTemplateService restTemplateService,GarageRepository garageRepository){
+    public UsersearchGarageService(RestTemplateService restTemplateService,GarageRepository garageRepository,UserRepository userRepository){
         this.garageRepository = garageRepository;
         this.restTemplateService = restTemplateService;
+        this.userRepository =userRepository;
 
     }
     public  List<GarageDTO> getGarageForUser(String Coordinate, Double radiusKm, List<ServiceDTO> services){
@@ -70,9 +73,22 @@ public class UsersearchGarageService {
                 })
                 .toList();
 
-        List<GarageDTO> finalRendurlisteGarage = finalListGarage.stream()
+        /*List<GarageDTO> finalRendurlisteGarage = finalListGarage.stream()
                 .map(GarageMapper::garageToGarageDTo)
+                .toList();*/
+        List<GarageDTO> finalRendurlisteGarage = finalListGarage.stream()
+                .map(g -> {
+                    System.out.println("Engineer du garage " + g.getName() + " : " + g.getEngineer());
+
+                    User user = null;
+                    if (g.getEngineer() != null) {
+                        user = userRepository.findById(g.getEngineer().getId())
+                                .orElse(null);
+                    }
+                    return GarageMapper.garageToGarageDTo(g, user);
+                })
                 .toList();
+
         if (!finalRendurlisteGarage.isEmpty()) {
             System.out.println("Liste des garages :");
             finalRendurlisteGarage.forEach(garage -> System.out.println(garage));

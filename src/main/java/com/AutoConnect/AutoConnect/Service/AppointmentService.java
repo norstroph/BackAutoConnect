@@ -78,7 +78,7 @@ public class AppointmentService {
                 User technician = appointment.getTechnician();
             }
             User technician = appointment.getTechnician();
-            List<Services> services = appointment.getService();
+            List<Services> services = appointment.getServices();
             List<ServiceDTO> serviceDTOS = ServiceMapper.servicesToServicesDTO(services);
 
             ResponseAppointmentGarageDTO responseAppointmentGarageDTO = AppointmentMapper.responseAppointmentGarageDTO(appointment, customer, technician, serviceDTOS);

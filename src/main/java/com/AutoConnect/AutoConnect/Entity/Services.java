@@ -24,7 +24,7 @@ public class Services {
     private String description;
     @ManyToMany
     private List<Garage> garages;
-    @ManyToMany
+    @ManyToMany(mappedBy = "services")
     @JsonBackReference
     private List<Appointment> appointments;
 }

@@ -27,5 +27,5 @@ public class GarageDTO {
     private String codeCommune;
     private Double longitude;
     private Double latitude;
-
+    private String phone;
 }
