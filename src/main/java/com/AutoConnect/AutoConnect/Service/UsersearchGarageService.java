@@ -1,12 +1,11 @@
 package com.AutoConnect.AutoConnect.Service;
 
-import com.AutoConnect.AutoConnect.DTO.CoordinateDTO;
-import com.AutoConnect.AutoConnect.DTO.GarageDTO;
-import com.AutoConnect.AutoConnect.DTO.ServiceDTO;
-import com.AutoConnect.AutoConnect.Entity.Garage;
-import com.AutoConnect.AutoConnect.Entity.Services;
-import com.AutoConnect.AutoConnect.Entity.User;
+import com.AutoConnect.AutoConnect.DTO.*;
+import com.AutoConnect.AutoConnect.Entity.*;
+import com.AutoConnect.AutoConnect.Mapper.AvailabilityGarageDtOMapper;
 import com.AutoConnect.AutoConnect.Mapper.GarageMapper;
+import com.AutoConnect.AutoConnect.Mapper.GarageOpeningHoursMapper;
+import com.AutoConnect.AutoConnect.Repository.GarageOpeningHoursRepository;
 import com.AutoConnect.AutoConnect.Repository.GarageRepository;
 import com.AutoConnect.AutoConnect.Repository.UserRepository;
 import org.gavaghan.geodesy.Ellipsoid;
@@ -14,7 +13,10 @@ import org.gavaghan.geodesy.GeodeticCalculator;
 import org.gavaghan.geodesy.GlobalPosition;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
@@ -25,12 +27,14 @@ public class UsersearchGarageService {
     private final Ellipsoid reference = Ellipsoid.WGS84;
     private final RestTemplateService restTemplateService;
     private final UserRepository userRepository;
+    private final GarageOpeningHoursRepository garageOpeningHoursRepository;
 
 
-    public UsersearchGarageService(RestTemplateService restTemplateService,GarageRepository garageRepository,UserRepository userRepository){
+    public UsersearchGarageService(RestTemplateService restTemplateService,GarageRepository garageRepository,UserRepository userRepository,GarageOpeningHoursRepository garageOpeningHoursRepository){
         this.garageRepository = garageRepository;
         this.restTemplateService = restTemplateService;
         this.userRepository =userRepository;
+        this.garageOpeningHoursRepository = garageOpeningHoursRepository;
 
     }
     public  List<GarageDTO> getGarageForUser(String Coordinate, Double radiusKm, List<ServiceDTO> services){
@@ -99,5 +103,29 @@ public class UsersearchGarageService {
         return finalRendurlisteGarage;
 
     }
+
+    public AvailabilityGarageDTO getAllDateuseForAppointment(Long garageId) {
+        List<GarageOpeningHours> garageOpeningHours = garageOpeningHoursRepository.findByGarageId(garageId);
+        List<GarageOpeningHoursDto> garageOpeningHoursDtos = garageOpeningHours.stream().map(GarageOpeningHoursMapper :: GarageOpeningHoursToGarageOpenHoursDto).toList();
+        Garage garage = garageRepository.findById(garageId).orElseThrow(() -> new RuntimeException("garage not found"));
+        int count = garage.getTechnicians().size();
+        List<AppointmentDTO> appointmentDTOS = new ArrayList<>();
+        Map<Date, List<Appointment>> groupedAppointments = garage.getAppointments()
+                .stream()
+                .collect(Collectors.groupingBy(Appointment::getStartDate));
+        for (Map.Entry<Date, List<Appointment>> entry : groupedAppointments.entrySet()) {
+            if (entry.getValue().size() == count) {
+                AppointmentDTO appointmentDTO = new AppointmentDTO();
+                Date startDate = entry.getKey();
+                appointmentDTO.setStartDate(startDate);
+                Date endDate = entry.getValue().get(0).getEndDate();
+                appointmentDTO.setEndDate(endDate);
+                appointmentDTOS.add(appointmentDTO);
+                System.out.println("Date trouvée : " + startDate + " → " + endDate);
+            }
+        }
+        return AvailabilityGarageDtOMapper.entityToAvailabilityGarageDtO(appointmentDTOS,garageOpeningHoursDtos);
+    }
+
 
 }

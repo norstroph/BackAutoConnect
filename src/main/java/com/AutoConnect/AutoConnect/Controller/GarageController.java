@@ -1,5 +1,6 @@
 package com.AutoConnect.AutoConnect.Controller;
 
+import com.AutoConnect.AutoConnect.DTO.AvailabilityGarageDTO;
 import com.AutoConnect.AutoConnect.DTO.GarageDTO;
 import com.AutoConnect.AutoConnect.DTO.ServiceDTO;
 import com.AutoConnect.AutoConnect.Entity.Services;
@@ -27,5 +28,10 @@ public class GarageController {
     @PostMapping("/gps")
     public ResponseEntity<List<GarageDTO>> getAllGArageWithGPS(@RequestParam Double latitude,@RequestParam Double longitude,@RequestParam Double radiusKm,@RequestBody List<ServiceDTO> services) {
         return new ResponseEntity<>(usersearchGarageService.getGarageForUserWithGPS(latitude, longitude, radiusKm, services), HttpStatus.CREATED);
+
+    }
+    @GetMapping("/availability-garage")
+    public ResponseEntity<AvailabilityGarageDTO> getAllDateuseForAppointment(@RequestParam Long garageId){
+        return new ResponseEntity<>(usersearchGarageService.getAllDateuseForAppointment(garageId), HttpStatus.OK);
     }
 }
