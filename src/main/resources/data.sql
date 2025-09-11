@@ -120,3 +120,22 @@ UPDATE garage SET user_id = 7 WHERE id = 7;
 UPDATE garage SET user_id = 8 WHERE id = 8;
 UPDATE garage SET user_id = 9 WHERE id = 9;
 UPDATE garage SET user_id = 10 WHERE id = 10;
+
+-- ==========================
+-- 5. APPOINTMENTS
+-- ==========================
+INSERT INTO appointment (id, garage_id, customer_id, technician_id, start_date, end_date, totale_price, comment) VALUES
+(1, 1, 3, 2, '2025-09-15 09:00:00', '2025-09-15 10:00:00', 89.99,  'Vidange + contrôle général'),
+(2, 2, 4, 2, '2025-09-16 14:30:00', '2025-09-16 15:30:00', 199.00, 'Remplacement plaquettes avant'),
+(3, 3, 5, 1, '2025-09-17 08:30:00', '2025-09-17 09:15:00', 59.00,  'Diagnostic électronique'),
+(4, 4, 6, 7, '2025-09-18 11:00:00', '2025-09-18 12:30:00', 320.00, 'Courroie + pompe à eau (distribution)'),
+(5, 5, 7, 8, '2025-09-19 10:00:00', '2025-09-19 11:00:00', 120.50, 'Test et remplacement batterie');
+
+INSERT INTO garage_opening_hours (day_of_week, opening_hour, closing_hour, garage_id)
+VALUES
+('MONDAY', '08:00:00', '18:00:00', 1),
+('TUESDAY', '08:00:00', '18:00:00', 1),
+('WEDNESDAY', '08:00:00', '18:00:00', 1),
+('THURSDAY', '08:00:00', '18:00:00', 1),
+('FRIDAY', '08:00:00', '18:00:00', 1),
+('SATURDAY', '09:00:00', '13:00:00', 1);

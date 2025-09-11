@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -44,5 +45,7 @@ public class Garage {
     private Double latitude;
     @ManyToMany
     private List<Services> Services;
+    @OneToMany(mappedBy = "garage", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<GarageOpeningHours> openingHours = new ArrayList<>();
 
 }
