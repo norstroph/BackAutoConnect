@@ -1,4 +1,4 @@
-package com.AutoConnect.AutoConnect.DTO;
+package com.AutoConnect.AutoConnect.DTO.ExternalAPI;
 
 import java.util.List;
 
@@ -16,16 +16,3 @@ public class GeocodeResponse {
     }
 }
 
-class Properties {
-    private String label;
-
-    public Properties() {}
-
-    public String getLabel() {
-        return label;
-    }
-
-    public void setLabel(String label) {
-        this.label = label;
-    }
-}

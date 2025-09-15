@@ -1,4 +1,4 @@
-package com.AutoConnect.AutoConnect.DTO;
+package com.AutoConnect.AutoConnect.DTO.ExternalAPI;
 
 import java.util.List;
 

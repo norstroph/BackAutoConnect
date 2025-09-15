@@ -15,16 +15,15 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Services {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Services extends BaseEntity{
     private String name;
+
     @Column(columnDefinition = "TEXT")
     private String description;
+
     @ManyToMany
     private List<Garage> garages;
+
     @ManyToMany(mappedBy = "services")
-    @JsonBackReference
     private List<Appointment> appointments;
 }
