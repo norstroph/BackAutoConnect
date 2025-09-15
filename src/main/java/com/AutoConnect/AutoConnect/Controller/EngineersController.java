@@ -3,7 +3,7 @@ package com.AutoConnect.AutoConnect.Controller;
 import com.AutoConnect.AutoConnect.DTO.ResponseAppointmentGarageDTO;
 import com.AutoConnect.AutoConnect.DTO.UserRequestDTO;
 import com.AutoConnect.AutoConnect.DTO.UserResponseDTO;
-import com.AutoConnect.AutoConnect.Entity.Role;
+import com.AutoConnect.AutoConnect.Entity.Enum.Role;
 import com.AutoConnect.AutoConnect.Service.AppointmentService;
 import com.AutoConnect.AutoConnect.Service.UserService;
 import jakarta.validation.Valid;
@@ -32,7 +32,7 @@ public class EngineersController {
     public ResponseEntity<List<UserResponseDTO>> getAllTechnicians(){
         return new ResponseEntity<>(userService.findByRoleTechnicians(Role.TECHNICIAN),HttpStatus.FOUND);
     }
-    @GetMapping("/allApointmentGarage")
+    @GetMapping("/all-Apointment-Garage")
     public ResponseEntity<List<ResponseAppointmentGarageDTO>> AllAppointmentGarage(@RequestHeader("Authorization") String authHeader){
         return new ResponseEntity<>(appointmentService.getAllGarageAppointement(authHeader),HttpStatus.FOUND);
     }

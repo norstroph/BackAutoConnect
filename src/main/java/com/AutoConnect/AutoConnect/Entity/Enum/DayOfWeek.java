@@ -1,4 +1,4 @@
-package com.AutoConnect.AutoConnect.Entity;
+package com.AutoConnect.AutoConnect.Entity.Enum;
 
 public enum DayOfWeek {
     MONDAY,

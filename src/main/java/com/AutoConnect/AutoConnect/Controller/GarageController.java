@@ -21,17 +21,17 @@ public class GarageController {
 
     }
     @PostMapping
-    public ResponseEntity<List<GarageDTO>> getAllGArage(@RequestParam String Coordinate,@RequestParam Double radiusKm,@RequestBody List<ServiceDTO> services){
+    public ResponseEntity<List<GarageDTO>> getAllGarage(@RequestParam String Coordinate,@RequestParam Double radiusKm,@RequestBody List<ServiceDTO> services){
      return new ResponseEntity<>(usersearchGarageService.getGarageForUser(Coordinate, radiusKm, services), HttpStatus.CREATED);
     }
 
     @PostMapping("/gps")
-    public ResponseEntity<List<GarageDTO>> getAllGArageWithGPS(@RequestParam Double latitude,@RequestParam Double longitude,@RequestParam Double radiusKm,@RequestBody List<ServiceDTO> services) {
+    public ResponseEntity<List<GarageDTO>> getAllGarageWithGPS(@RequestParam Double latitude,@RequestParam Double longitude,@RequestParam Double radiusKm,@RequestBody List<ServiceDTO> services) {
         return new ResponseEntity<>(usersearchGarageService.getGarageForUserWithGPS(latitude, longitude, radiusKm, services), HttpStatus.CREATED);
 
     }
     @GetMapping("/availability-garage")
-    public ResponseEntity<AvailabilityGarageDTO> getAllDateuseForAppointment(@RequestParam Long garageId){
+    public ResponseEntity<AvailabilityGarageDTO> getAllDateUseForAppointment(@RequestParam Long garageId){
         return new ResponseEntity<>(usersearchGarageService.getAllDateuseForAppointment(garageId), HttpStatus.OK);
     }
 }

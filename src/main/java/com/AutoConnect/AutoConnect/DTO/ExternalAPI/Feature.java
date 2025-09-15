@@ -1,4 +1,4 @@
-package com.AutoConnect.AutoConnect.DTO;
+package com.AutoConnect.AutoConnect.DTO.ExternalAPI;
 
 public class Feature {
     private Geometry geometry;

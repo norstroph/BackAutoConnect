@@ -1,12 +1,10 @@
 package com.AutoConnect.AutoConnect.Service;
 
-import com.AutoConnect.AutoConnect.DTO.ResponseAppointmentGarageDTO;
 import com.AutoConnect.AutoConnect.DTO.UserRequestDTO;
 import com.AutoConnect.AutoConnect.DTO.UserResponseDTO;
 import com.AutoConnect.AutoConnect.DTO.UserloginRequestDTO;
-import com.AutoConnect.AutoConnect.Entity.Appointment;
 import com.AutoConnect.AutoConnect.Entity.Garage;
-import com.AutoConnect.AutoConnect.Entity.Role;
+import com.AutoConnect.AutoConnect.Entity.Enum.Role;
 import com.AutoConnect.AutoConnect.Entity.User;
 import com.AutoConnect.AutoConnect.Mapper.UserMapper;
 import com.AutoConnect.AutoConnect.Repository.GarageRepository;

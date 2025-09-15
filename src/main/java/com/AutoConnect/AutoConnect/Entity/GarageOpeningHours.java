@@ -14,10 +14,7 @@ import java.time.LocalTime;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class GarageOpeningHours {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class GarageOpeningHours extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     private DayOfWeek dayOfWeek;

@@ -1,6 +1,7 @@
 package com.AutoConnect.AutoConnect.Config;
 
 
+import com.AutoConnect.AutoConnect.Entity.Enum.Role;
 import com.AutoConnect.AutoConnect.Security.JwtFilter;
 import com.AutoConnect.AutoConnect.Security.JwtUtil;
 import com.AutoConnect.AutoConnect.Service.CustomUserDetailsService;
@@ -13,11 +14,6 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-
-import java.util.List;
 
 @Configuration
 @AllArgsConstructor
@@ -34,14 +30,10 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/technician/**").hasAnyRole("ADMIN","TECHNICIAN")
-                        .requestMatchers("/customers/**").hasAnyRole("USER", "ADMIN","TECHNICIAN")
-                        .requestMatchers("/appointements").permitAll()
-                        .requestMatchers("/services/**").permitAll()
-                        .requestMatchers("/api/car/**").permitAll()
-                        .requestMatchers("/auth/**").permitAll()
-                        .requestMatchers("/garage/**").permitAll()
+                        .requestMatchers("/admin/**").hasRole(Role.ADMIN.name())
+                        .requestMatchers("/technician/**").hasAnyRole(Role.ADMIN.name(),Role.TECHNICIAN.name())
+                        .requestMatchers("/customers/**").hasAnyRole(Role.CUSTOMER.name(),Role.ADMIN.name(),Role.TECHNICIAN.name())
+                        .requestMatchers("/garage/**","/auth/**","/api/car/**","/services/**","/appointements").permitAll()
 
                         .requestMatchers(   "/swagger-ui/**",
                                 "/v3/api-docs/**",
@@ -55,21 +47,5 @@ public class SecurityConfig {
         return http.build();
     }
 
-    @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-
-        configuration.setAllowedOrigins(List.of("http://localhost:5173","http://localhost:8081","http://localhost:8080","http://localhost:5174")); // Frontend
-        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
-
-
-        configuration.setAllowCredentials(true);
-
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-
-        return source;
-    }
 
 }

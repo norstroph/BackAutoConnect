@@ -1,9 +1,7 @@
 package com.AutoConnect.AutoConnect.Repository;
 
-import com.AutoConnect.AutoConnect.Entity.Role;
+import com.AutoConnect.AutoConnect.Entity.Enum.Role;
 import com.AutoConnect.AutoConnect.Entity.User;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
