@@ -1,6 +1,7 @@
 package com.AutoConnect.AutoConnect.Mapper;
 
 import com.AutoConnect.AutoConnect.DTO.ServiceDTO;
+import com.AutoConnect.AutoConnect.DTO.ShapeEntityServiceDTO;
 import com.AutoConnect.AutoConnect.Entity.Services;
 import org.springframework.stereotype.Service;
 
@@ -17,4 +18,18 @@ public class ServiceMapper {
                 .toList();
         return serviceDTOs;
     };
+
+    public static List<ShapeEntityServiceDTO> servicesToServicesDTONameAndDescription(List<Services> services){
+        List<ShapeEntityServiceDTO> ShapeEntityServiceDTO = services.stream()
+                .map(s -> {
+                    ShapeEntityServiceDTO sdto = new ShapeEntityServiceDTO();
+                    sdto.setId(s.getId());
+                    sdto.setName(s.getName());
+                    sdto.setDescription(s.getDescription());
+                    return sdto;
+                })
+                .toList();
+        return ShapeEntityServiceDTO;
+    };
+
 }

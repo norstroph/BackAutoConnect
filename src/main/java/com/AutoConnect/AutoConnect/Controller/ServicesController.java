@@ -1,5 +1,7 @@
 package com.AutoConnect.AutoConnect.Controller;
 
+import com.AutoConnect.AutoConnect.DTO.ServiceDTO;
+import com.AutoConnect.AutoConnect.DTO.ShapeEntityServiceDTO;
 import com.AutoConnect.AutoConnect.Entity.Services;
 import com.AutoConnect.AutoConnect.Repository.ServiceRepository;
 import com.AutoConnect.AutoConnect.Service.RepairService;
@@ -21,7 +23,7 @@ public class ServicesController {
    }
 
    @GetMapping
-    public ResponseEntity<List<Services>> getAllServices(){
+    public ResponseEntity<List<ShapeEntityServiceDTO>> getAllServices(){
        return new ResponseEntity<>(repairService.getAllService(), HttpStatus.OK);
    }
 
