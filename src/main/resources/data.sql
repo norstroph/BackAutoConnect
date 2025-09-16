@@ -72,7 +72,7 @@ VALUES
 -- USERS (liés aux garages)
 -- =======================
 INSERT INTO user (id, username, name, email, password, phone, role, garage_id) VALUES
-(1, 'jdupont', 'Jean Dupont', 'jean.dupont@example.com', 'password', '0600000001', 'ENGINEER', 1),
+(1, 'jdupont', 'Jean Dupont', 'jean.dupont@example.com', '$2b$12$TTx2MZ.GdVCf.SPWQEf/Z.XTiEnv0bHZto7Vny9I2kT.DfgREx46C', '0600000001', 'ENGINEER', 1),
 (2, 'mbernard', 'Marie Bernard', 'marie.bernard@example.com', 'password', '0600000002', 'TECHNICIAN', 1),
 (3, 'cpetit', 'Claude Petit', 'claude.petit@example.com', 'password', '0600000003', 'CUSTOMER', 2),
 (4, 'pduval', 'Paul Duval', 'paul.duval@example.com', 'password', '0600000004', 'TECHNICIAN', 2),
