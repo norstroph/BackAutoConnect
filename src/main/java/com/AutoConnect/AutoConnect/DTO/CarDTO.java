@@ -1,23 +1,19 @@
-package com.AutoConnect.AutoConnect.Entity;
+package com.AutoConnect.AutoConnect.DTO;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Car extends BaseEntity {
+public class CarDTO {
+    private Long id;
     private String immat;
     private String km;
     private String make;
     private String model;
     private int year;
-
-    @JoinColumn(name = "user_id")
-    private Long userId ;
 }

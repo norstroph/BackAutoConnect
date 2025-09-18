@@ -30,5 +30,8 @@ public class User extends BaseEntity {
     @OneToMany(mappedBy = "customer")
     private List<Appointment> appointments;
 
+    @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Car> cars;
+
 
 }
