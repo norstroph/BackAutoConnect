@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/appointments")
 public class AppointmentController {
@@ -23,6 +25,11 @@ public class AppointmentController {
     public ResponseEntity<AppointmentRequestDTO> createAppointment(@RequestHeader("Authorization") String authHeader, @Valid  @RequestBody AppointmentRequestDTO appointmentRequestDTO){
     return new  ResponseEntity<>(appointmentService.saveAppointment(appointmentRequestDTO,authHeader), HttpStatus.CREATED);
     };
+
+    @GetMapping
+    public ResponseEntity<List<AppointmentRequestDTO>> getAllAppointments(@RequestHeader("Authorization") String authHeader){
+        return new ResponseEntity<>(appointmentService.getAllAppointments(authHeader), HttpStatus.OK);
+    }
 
 
 }

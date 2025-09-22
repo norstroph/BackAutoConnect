@@ -22,4 +22,7 @@ public interface AppointmentRepository extends JpaRepository<Appointment,Long> {
     @Modifying
     @Query("UPDATE Appointment a SET a.technician = :tech WHERE a.id = :id")
     void updateTech(@Param("id") Long appointmentId, @Param("tech") User tech);
+
+    @Query("SELECT a FROM Appointment a WHERE a.customer.id = :customerId")
+    List<Appointment> findByCustomerId(@Param("customerId") Long customerId);
 }

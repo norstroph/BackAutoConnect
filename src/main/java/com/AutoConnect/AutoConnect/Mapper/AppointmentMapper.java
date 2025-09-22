@@ -8,6 +8,7 @@ import com.AutoConnect.AutoConnect.Entity.Garage;
 import com.AutoConnect.AutoConnect.Entity.Services;
 import com.AutoConnect.AutoConnect.Entity.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AppointmentMapper {
@@ -40,5 +41,16 @@ public class AppointmentMapper {
         }
         return  responseAppointmentGarageDTO;
 
+    }
+
+    public static List<AppointmentRequestDTO> appointmentToAppointmentDTO(List<Appointment> appointment){
+        List<AppointmentRequestDTO> appointmentRequestDTOList = new ArrayList<>();
+        for(Appointment appointment1 : appointment){
+            AppointmentRequestDTO appointmentRequestDTO = new AppointmentRequestDTO();
+            appointmentRequestDTO.setStartDate(appointment1.getStartDate());
+            appointmentRequestDTO.setEndDate(appointment1.getEndDate());
+            appointmentRequestDTOList.add(appointmentRequestDTO);
+        }
+        return appointmentRequestDTOList;
     }
 }
