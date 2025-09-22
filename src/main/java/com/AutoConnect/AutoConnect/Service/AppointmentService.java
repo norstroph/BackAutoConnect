@@ -102,6 +102,17 @@ public class AppointmentService {
         appointemantRepository.updateTech(idAppointment, tech);
         return UserMapper.UserToUserResponseDTO(tech);
     }
+
+    public List<AppointmentRequestDTO> getAllAppointments(String authHeader) {
+        String token = authHeader.replace("Bearer ", "");
+        String userEmail = jwtUtil.extractEmail(token);
+        User user = userRepository.findByEmail(userEmail)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        List<Appointment> appointmentList = appointemantRepository.findByCustomerId(user.getId());
+        List<AppointmentRequestDTO> appointmentRequestDTOList = AppointmentMapper.appointmentToAppointmentDTO(appointmentList);
+        return appointmentRequestDTOList;
+
+    }
 }
 
 
