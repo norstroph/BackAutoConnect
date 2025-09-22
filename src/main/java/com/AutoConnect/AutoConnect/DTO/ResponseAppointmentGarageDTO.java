@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -16,8 +18,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ResponseAppointmentGarageDTO {
-    private Date startDate;
-    private Date endDate;
+    private LocalDateTime  startDate;
+    private LocalDateTime endDate;
     private List<ServiceDTO> serviceDTOS;
     private Long customerId;
     private String customerName;
@@ -26,6 +28,5 @@ public class ResponseAppointmentGarageDTO {
     private Long techicianId;
     private  String technicianName;
     private String technicianSurname;
-
 
 }

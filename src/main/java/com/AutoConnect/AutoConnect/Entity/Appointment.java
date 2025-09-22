@@ -6,7 +6,9 @@ import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import lombok.*;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
+
 import java.util.List;
 
 @Entity
@@ -17,8 +19,8 @@ import java.util.List;
 public class Appointment extends BaseEntity{
 
 
-    private Date startDate;
-    private Date endDate;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
     private Double totalePrice;
     private String comment;
 

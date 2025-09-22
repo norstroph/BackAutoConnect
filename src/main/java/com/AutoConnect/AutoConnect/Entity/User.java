@@ -2,7 +2,6 @@ package com.AutoConnect.AutoConnect.Entity;
 
 
 import com.AutoConnect.AutoConnect.Entity.Enum.Role;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 

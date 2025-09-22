@@ -2,6 +2,7 @@ package com.AutoConnect.AutoConnect.Service;
 
 import com.AutoConnect.AutoConnect.DTO.*;
 import com.AutoConnect.AutoConnect.Entity.*;
+import com.AutoConnect.AutoConnect.Entity.Enum.Role;
 import com.AutoConnect.AutoConnect.Mapper.AvailabilityGarageDtOMapper;
 import com.AutoConnect.AutoConnect.Mapper.GarageMapper;
 import com.AutoConnect.AutoConnect.Mapper.GarageOpeningHoursMapper;
@@ -13,6 +14,9 @@ import org.gavaghan.geodesy.GeodeticCalculator;
 import org.gavaghan.geodesy.GlobalPosition;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -108,17 +112,19 @@ public class UsersearchGarageService {
         List<GarageOpeningHours> garageOpeningHours = garageOpeningHoursRepository.findByGarageId(garageId);
         List<GarageOpeningHoursDto> garageOpeningHoursDtos = garageOpeningHours.stream().map(GarageOpeningHoursMapper :: GarageOpeningHoursToGarageOpenHoursDto).toList();
         Garage garage = garageRepository.findById(garageId).orElseThrow(() -> new RuntimeException("garage not found"));
-        int count = garage.getTechnicians().size();
-        List<AppointmentDTO> appointmentDTOS = new ArrayList<>();
-        Map<Date, List<Appointment>> groupedAppointments = garage.getAppointments()
+        int count = (int) garage.getTechnicians()
                 .stream()
-                .collect(Collectors.groupingBy(Appointment::getStartDate));
-        for (Map.Entry<Date, List<Appointment>> entry : groupedAppointments.entrySet()) {
+                .filter(user -> user.getRole() == Role.TECHNICIAN)
+                .count();
+        System.out.println(count);
+        List<AppointmentDTO> appointmentDTOS = new ArrayList<>();
+        Map<LocalDateTime, List<Appointment>> groupedAppointments = garage.getAppointments() .stream() .collect(Collectors.groupingBy(Appointment::getStartDate));
+        for (Map.Entry<LocalDateTime, List<Appointment>> entry : groupedAppointments.entrySet()) {
             if (entry.getValue().size() == count) {
                 AppointmentDTO appointmentDTO = new AppointmentDTO();
-                Date startDate = entry.getKey();
+                LocalDateTime startDate = entry.getKey();
                 appointmentDTO.setStartDate(startDate);
-                Date endDate = entry.getValue().get(0).getEndDate();
+                LocalDateTime endDate = entry.getValue().get(0).getEndDate();
                 appointmentDTO.setEndDate(endDate);
                 appointmentDTOS.add(appointmentDTO);
                 System.out.println("Date trouvée : " + startDate + " → " + endDate);
