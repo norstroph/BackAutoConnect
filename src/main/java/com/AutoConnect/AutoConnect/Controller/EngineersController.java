@@ -28,16 +28,16 @@ public class EngineersController {
         return new ResponseEntity<>(userService.saveTechnicians(userRequest,authHeader ), HttpStatus.CREATED);
     }
 
-    @GetMapping
-    public ResponseEntity<List<UserResponseDTO>> getAllTechnicians(){
-        return new ResponseEntity<>(userService.findByRoleTechnicians(Role.TECHNICIAN),HttpStatus.FOUND);
+    @GetMapping("/get-tech")
+    public ResponseEntity<List<UserResponseDTO>> getAllTechnicians(@RequestHeader("Authorization") String authHeader ){
+        return new ResponseEntity<>(userService.findByRoleTechnicians(authHeader),HttpStatus.OK);
     }
     @GetMapping("/all-Apointment-Garage")
     public ResponseEntity<List<ResponseAppointmentGarageDTO>> AllAppointmentGarage(@RequestHeader("Authorization") String authHeader){
         return new ResponseEntity<>(appointmentService.getAllGarageAppointement(authHeader),HttpStatus.OK);
     }
     @PutMapping("/{id-appointment}/{id-tech}")
-    public ResponseEntity<UserResponseDTO> addTechnicianToAppointment(@PathVariable Long idAppointment , @PathVariable Long idTech){
+    public ResponseEntity<UserResponseDTO> addTechnicianToAppointment(@RequestParam Long idAppointment , @RequestParam Long idTech){
         return new  ResponseEntity<>(appointmentService.addTechnicianToAppointment(idAppointment,idTech), HttpStatus.CREATED);
     }
 }

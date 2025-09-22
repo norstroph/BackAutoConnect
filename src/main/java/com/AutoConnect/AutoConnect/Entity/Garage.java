@@ -18,7 +18,10 @@ import java.util.List;
 public class Garage extends BaseEntity {
 
     private String name;
+
+    @Column(unique = true)
     private String siren;
+
     private String numeroVoie;
     private String typeVoie;
     private String libelleVoie;

@@ -96,11 +96,17 @@ public class UserService {
         return created;
     }
 
-    public List<UserResponseDTO> findByRoleTechnicians(Role role){
-        List<User> users = userRepository.findByRole(role)
-                .orElseThrow(() -> new UsernameNotFoundException("Role not found"));
-
-        return users.stream()
+    public List<UserResponseDTO> findByRoleTechnicians(String authHeader){
+        String token = authHeader.replace("Bearer ", "");
+        String userEmail = jwtUtil.extractEmail(token);
+        User engineerUser = userRepository.findByEmail(userEmail)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        Garage garageId = garageRepository.findById(engineerUser.getId())
+                .orElseThrow(() -> new RuntimeException("Garage not found"));
+        Garage garage = garageRepository.findById(engineerUser.getGarage().getId())
+                .orElseThrow(() -> new RuntimeException("Garage not found"));
+        List<User> techGarage = userRepository.findByGarageIdAndRole(garage.getId(), Role.TECHNICIAN);
+        return techGarage.stream()
                 .map(UserMapper::UserToUserResponseDTO)
                 .toList();
     }
