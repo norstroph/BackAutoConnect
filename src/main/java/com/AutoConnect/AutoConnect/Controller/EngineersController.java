@@ -36,7 +36,7 @@ public class EngineersController {
     public ResponseEntity<List<ResponseAppointmentGarageDTO>> AllAppointmentGarage(@RequestHeader("Authorization") String authHeader){
         return new ResponseEntity<>(appointmentService.getAllGarageAppointement(authHeader),HttpStatus.OK);
     }
-    @PutMapping("/{id-appointment}/{id-tech}")
+    @PutMapping()
     public ResponseEntity<UserResponseDTO> addTechnicianToAppointment(@RequestParam Long idAppointment , @RequestParam Long idTech){
         return new  ResponseEntity<>(appointmentService.addTechnicianToAppointment(idAppointment,idTech), HttpStatus.OK);
     }
