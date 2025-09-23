@@ -38,6 +38,6 @@ public class EngineersController {
     }
     @PutMapping("/{id-appointment}/{id-tech}")
     public ResponseEntity<UserResponseDTO> addTechnicianToAppointment(@RequestParam Long idAppointment , @RequestParam Long idTech){
-        return new  ResponseEntity<>(appointmentService.addTechnicianToAppointment(idAppointment,idTech), HttpStatus.CREATED);
+        return new  ResponseEntity<>(appointmentService.addTechnicianToAppointment(idAppointment,idTech), HttpStatus.OK);
     }
 }

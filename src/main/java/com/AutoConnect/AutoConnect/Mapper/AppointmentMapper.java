@@ -34,7 +34,7 @@ public class AppointmentMapper {
 
     public static ResponseAppointmentGarageDTO responseAppointmentGarageDTO(Appointment appointment, User customer, User technician, List<ServiceDTO> services){
         ResponseAppointmentGarageDTO responseAppointmentGarageDTO = new ResponseAppointmentGarageDTO();
-
+        responseAppointmentGarageDTO.setId(appointment.getId());
         responseAppointmentGarageDTO.setStartDate(appointment.getStartDate());
         responseAppointmentGarageDTO.setEndDate(appointment.getEndDate());
         responseAppointmentGarageDTO.setServiceDTOS(services);

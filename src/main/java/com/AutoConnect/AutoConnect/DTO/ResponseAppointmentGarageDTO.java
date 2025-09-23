@@ -18,6 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ResponseAppointmentGarageDTO {
+    private Long id;
     private LocalDateTime  startDate;
     private LocalDateTime endDate;
     private List<ServiceDTO> serviceDTOS;
